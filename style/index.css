@@ -1,0 +1,22 @@
+.ven_2 {
+  display: flex;
+}
+.head_opcion {
+  text-align: center;
+  font-size: 24px;
+}
+.opciones {
+  display: flex;
+  width: 27%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.opcion {
+  width: 180px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.muestras {
+  width: 73%;
+}
