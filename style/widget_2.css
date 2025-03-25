@@ -1,0 +1,16 @@
+.container-fluid {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las imágenes se ajusten a nuevas filas */
+  gap: 5px; /* Espacio entre las imágenes */
+  justify-content: space-between; /* Asegura que las imágenes estén espaciadas correctamente */
+}
+
+/* Estilos para cada imagen */
+.video-item {
+  flex: 1 1 23%; /* Cada imagen ocupa el 23% del contenedor, dejando espacio entre ellas */
+  text-align: center;
+}
+
+.video-item img {
+  width: 100%; /* Hace que la imagen ocupe todo el espacio disponible */
+}
