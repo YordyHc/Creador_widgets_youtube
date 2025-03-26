@@ -1,0 +1,53 @@
+.con_1 {
+  position: relative;
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lista {
+  width: 100%;
+}
+
+.video-group {
+  display: none;
+}
+
+.video-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.miniatura {
+  width: 30%;
+}
+
+.miniatura img {
+  width: 100%;
+  height: auto;
+}
+
+.descripcion {
+  width: 70%;
+  padding-left: 10px;
+}
+
+/* Estilos para los botones */
+.nav-button {
+  font-size: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  color: #0b76e1;
+}
+
+.nav-button:hover {
+  color: #0056b3;
+}

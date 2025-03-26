@@ -16,7 +16,8 @@
 
     if ($request == '/' || $request == '/creacion_widgets_youtube/') {
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/index.php';
-        include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_2.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_3.php';
+        //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_2.php';
         //$controller = new VideoController();
         //$controller->showVideos();  
     } else {
