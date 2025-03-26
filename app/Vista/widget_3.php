@@ -30,7 +30,7 @@ $videos = json_encode($responses);
 
 <div class="con_1">
     <!-- Botón de "Anterior" (apunta hacia arriba) -->
-    <button id="prevBtn" class="nav-button">ꜛ</button>  
+    <button id="prevBtn" class="nav-button"> ꜛ </button>  
 
     <div class="lista" id="lista">
         <?php 
@@ -52,7 +52,7 @@ $videos = json_encode($responses);
     </div>
 
     <!-- Botón de "Siguiente" (apunta hacia abajo) -->
-    <button id="nextBtn" class="nav-button">˅</button>  
+    <button id="nextBtn" class="nav-button"> ˅ </button>  
 </div>
 
 <script>

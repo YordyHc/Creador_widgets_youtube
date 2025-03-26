@@ -41,11 +41,12 @@
 /* Estilos para los botones */
 .nav-button {
   font-size: 30px;
-  background-color: transparent;
+  background-color: black;
   border: none;
   cursor: pointer;
   margin: 10px;
   color: #0b76e1;
+  border-radius: 45%;
 }
 
 .nav-button:hover {
