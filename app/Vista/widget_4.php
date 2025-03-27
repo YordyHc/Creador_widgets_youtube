@@ -9,7 +9,7 @@ $description3 = "Tercera descripción de la imagen.";
 
 $responses = [];
 
-for ($i = 0; $i < 9; $i++) {
+for ($i = 0; $i < 6; $i++) {  // 6 elementos en total por slide
     $responses[] = ["image_url" => $imageUrl, "description" => $description];
     $responses[] = ["image_url" => $imageUrl2, "description" => $description2];
     $responses[] = ["image_url" => $imageUrl3, "description" => $description3];
@@ -17,7 +17,6 @@ for ($i = 0; $i < 9; $i++) {
 
 // Convertir a JSON para manejar con JS
 $videos = json_encode($responses);
-?>
 ?>
 
 <!DOCTYPE html>
@@ -32,15 +31,15 @@ $videos = json_encode($responses);
     <center><div class="carousel-container">
         <div class="carousel-wrapper">
             <?php 
-            $chunkedVideos = array_chunk($responses, 8); // Dividir en grupos de 16 imágenes
+            $chunkedVideos = array_chunk($responses, 8); // Dividir en grupos de 6 elementos por slide
             foreach ($chunkedVideos as $chunk): ?>
                 <div class="carousel-slide">
                     <?php foreach ($chunk as $video): ?>
                         <div class="video-item">
                             <img src="<?=$video['image_url']?>" alt="Imagen">
-                        </div>
-                        <div class="descripcion">
-                            <p><?=$video['description']?></p>
+                            <div class="descripcion">
+                                <p><?=$video['description']?></p>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -78,7 +77,6 @@ $videos = json_encode($responses);
                 document.querySelector(".carousel-wrapper").style.transform = `translateX(${offset}%)`;
             }
         });
-
     </script>
 </body>
 </html>
