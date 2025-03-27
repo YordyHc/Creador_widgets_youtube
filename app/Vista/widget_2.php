@@ -4,12 +4,15 @@ $imageUrl = "https://placehold.co/560x315/000000/FFF";
 $description = "Esta es una descripción de la imagen.";
 $imageUrl2 = "https://placehold.co/560x315/00cc00/FFF";
 $description2 = "Segunda descripción de la imagen.";
+$imageUrl3 = "https://placehold.co/560x315/bbcc00/FFF";
+$description3 = "Tercera descripción de la imagen.";
 
 $responses = [];
 
 for ($i = 0; $i < 25; $i++) {
     $responses[] = ["image_url" => $imageUrl, "description" => $description];
     $responses[] = ["image_url" => $imageUrl2, "description" => $description2];
+    $responses[] = ["image_url" => $imageUrl3, "description" => $description3];
 }
 
 // Convertir a JSON para manejar con JS
@@ -21,7 +24,6 @@ $videos = json_encode($responses);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/creacion_widgets_youtube/style/widget_2.css">
     <title>Widget Carrusel</title>
 </head>
 <body><br>
@@ -51,7 +53,7 @@ $videos = json_encode($responses);
             const slides = document.querySelectorAll(".carousel-slide");
             const totalSlides = slides.length;
             let currentIndex = 0;
-
+            console.log("clickeaaand");
             document.getElementById("nextBtn").addEventListener("click", () => {
                 if (currentIndex < totalSlides - 1) {
                     currentIndex++; // Solo avanza si no está en el último slide
