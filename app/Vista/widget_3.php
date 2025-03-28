@@ -1,22 +1,9 @@
 <?php
-// URL de las imágenes y descripciones
-$imageUrl = "https://placehold.co/560x315/000000/FFF";
-$description = "Esta es una descripción de la imagen.";
-$imageUrl2 = "https://placehold.co/560x315/00cc00/FFF";
-$description2 = "Segunda descripción de la imagen.";
-$imageUrl3 = "https://placehold.co/560x315/ffcc00/FFF";
-$description3 = "Tercera descripción de la imagen.";
+// Recibir los datos enviados a través de POST
+$data = json_decode(file_get_contents('php://input'), true);
 
-$responses = [];
-
-for ($i = 0; $i < 9; $i++) {
-    $responses[] = ["image_url" => $imageUrl, "description" => $description];
-    $responses[] = ["image_url" => $imageUrl2, "description" => $description2];
-    $responses[] = ["image_url" => $imageUrl3, "description" => $description3];
-}
-
-// Convertir a JSON para manejar con JS
-$videos = json_encode($responses);
+// Si los datos son correctos, se puede acceder a la variable 'videos'
+$videos = $data['videos'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,23 +11,24 @@ $videos = json_encode($responses);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/creacion_widgets_youtube/style/widget_3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Lista Vertical</title>
 </head>
 <body>
 
 <div class="con_1">
     <!-- Botón de "Anterior" (apunta hacia arriba) -->
-    <button id="prevBtn" class="nav-button"> ꜛ </button>  
+    <button id="prevBtn" class="nav-button"><i class="fa-solid fa-chevron-up"></i></button>  
 
     <div class="lista" id="lista">
         <?php 
-        $chunkedVideos = array_chunk($responses, 4); // Grupos de 4 filas
+        $chunkedVideos = array_chunk($videos, 4); // Grupos de 4 filas
         foreach ($chunkedVideos as $index => $chunk): ?>
             <div class="video-group">
                 <?php foreach ($chunk as $video): ?>
                     <div class="video-item">
                         <div class="miniatura">
-                            <img src="<?=$video['image_url']?>" alt="Imagen">
+                            <img src="<?=$video['thumbnail']?>" alt="Imagen">
                         </div>
                         <div class="descripcion">
                             <p><?=$video['description']?></p>
@@ -52,7 +40,7 @@ $videos = json_encode($responses);
     </div>
 
     <!-- Botón de "Siguiente" (apunta hacia abajo) -->
-    <button id="nextBtn" class="nav-button"> ˅ </button>  
+    <button id="nextBtn" class="nav-button"><i class="fa-solid fa-chevron-down"></i></button>  
 </div>
 
 <script>

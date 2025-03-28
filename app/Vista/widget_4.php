@@ -1,22 +1,9 @@
 <?php
-// URL de las imágenes y descripciones
-$imageUrl = "https://placehold.co/560x315/aa0000/FFF";
-$description = "Esta es una descripción de la imagen.";
-$imageUrl2 = "https://placehold.co/560x315/00cc00/FFF";
-$description2 = "Segunda descripción de la imagen.";
-$imageUrl3 = "https://placehold.co/560x315/ffcc00/FFF";
-$description3 = "Tercera descripción de la imagen.";
+// Recibir los datos enviados a través de POST
+$data = json_decode(file_get_contents('php://input'), true);
 
-$responses = [];
-
-for ($i = 0; $i < 6; $i++) {  // 6 elementos en total por slide
-    $responses[] = ["image_url" => $imageUrl, "description" => $description];
-    $responses[] = ["image_url" => $imageUrl2, "description" => $description2];
-    $responses[] = ["image_url" => $imageUrl3, "description" => $description3];
-}
-
-// Convertir a JSON para manejar con JS
-$videos = json_encode($responses);
+// Si los datos son correctos, se puede acceder a la variable 'videos'
+$videos = $data['videos']; 
 ?>
 
 <!DOCTYPE html>
@@ -31,12 +18,12 @@ $videos = json_encode($responses);
     <center><div class="carousel-container">
         <div class="carousel-wrapper">
             <?php 
-            $chunkedVideos = array_chunk($responses, 8); // Dividir en grupos de 6 elementos por slide
+            $chunkedVideos = array_chunk($videos, 8); // Dividir en grupos de 6 elementos por slide
             foreach ($chunkedVideos as $chunk): ?>
                 <div class="carousel-slide">
                     <?php foreach ($chunk as $video): ?>
                         <div class="video-item">
-                            <img src="<?=$video['image_url']?>" alt="Imagen">
+                            <img src="<?=$video['thumbnail']?>" alt="Imagen">
                             <div class="descripcion">
                                 <p><?=$video['description']?></p>
                             </div>
