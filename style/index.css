@@ -1,15 +1,16 @@
 .ven_2 {
   display: flex;
 }
-.head_opcion {
-  text-align: center;
-  font-size: 24px;
-}
 .opciones {
   display: flex;
   width: 27%;
+  height: 550px;
   justify-content: center;
   flex-wrap: wrap;
+}
+.head_opcion {
+  text-align: center;
+  font-size: 24px;
 }
 .opcion {
   width: 180px;
@@ -19,4 +20,6 @@
 
 .muestras {
   width: 73%;
+  height: 550px;
+  overflow-y: scroll;
 }

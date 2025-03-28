@@ -24,6 +24,7 @@ $videos = json_encode($responses);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/creacion_widgets_youtube/style/widget_2.css">
     <title>Widget Carrusel</title>
 </head>
 <body><br>
