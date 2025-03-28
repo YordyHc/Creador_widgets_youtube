@@ -26,6 +26,74 @@ $videos = json_encode($responses);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/creacion_widgets_youtube/style/widget_2.css">
     <title>Widget Carrusel</title>
+    <script>
+        let videos = <?php echo json_encode(array_values($videos)); ?>;
+        let currentIndex = 0;
+        const videosPerPage = 3;
+
+        function renderVideos() {
+            const gallery = document.querySelector('.gallery');
+            gallery.innerHTML = '';
+            for (let i = currentIndex; i < currentIndex + videosPerPage && i < videos.length; i++) {
+                let id_vid = videos[i]["id"];
+                let imagen = videos[i]["thumbnail"];
+                let duracion = videos[i]["duration"];
+                let titulo = videos[i]["title"];
+                let fecha = videos[i]["publishedAt"];
+                let vista = videos[i]["views"];
+                let likes = videos[i]["likes"];
+                let coment = videos[i]["comments"];
+                
+                gallery.innerHTML += `
+                    <div class="video" onclick="playvideo(\'${id_vid}\',\'${titulo}\',\'${vista}\')">
+                        <img src="${imagen}" alt="Miniatura 3" class="thumbnail">
+                        <button class='play-button'></button>
+                        <span class='video-duration'>${duracion}</span>
+                        <p class="video-title"><strong>${titulo}</strong></p>
+                        <p class="video-info">${fecha}</p><br><br>
+                        <p class="video-info">${vista} vistas • ${likes} likes • ${coment} comentarios</p>
+                    </div>`;
+            }
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const pagination = document.querySelector('.pagination');
+            pagination.innerHTML = '';
+            let totalPages = Math.ceil(videos.length / videosPerPage);
+            for (let i = 0; i < totalPages; i++) {
+                pagination.innerHTML += `<button class="${i * videosPerPage === currentIndex ? 'active' : ''}" onclick="goToPage(${i})">${i + 1}</button>`;
+            }
+        }
+
+        function goToPage(page) {
+            currentIndex = page * videosPerPage;
+            renderVideos();
+        }
+
+        function nextPage() {
+            if (currentIndex + videosPerPage < videos.length) {
+                currentIndex += videosPerPage;
+                renderVideos();
+            }
+        }
+
+        function prevPage() {
+            if (currentIndex - videosPerPage >= 0) {
+                currentIndex -= videosPerPage;
+                renderVideos();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderVideos();
+        });
+
+        function playVideo(videoId) {
+            alert("Reproduciendo video: " + videoId);
+            
+        }
+    </script>
 </head>
 <body><br>
     <center><div class="carousel-container">

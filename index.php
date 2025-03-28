@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><title>Document</title>
+    
 </head>
 <body>
     <?php
@@ -15,8 +16,9 @@
     $request = strtok($request, '?');
 
     if ($request == '/' || $request == '/creacion_widgets_youtube/') {
+        include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_1.php';
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_4.php';
-        include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/index.php';
+        //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/index.php';
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_3.php';
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_2.php';
         //$controller = new VideoController();
