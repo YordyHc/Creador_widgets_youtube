@@ -40,11 +40,12 @@ $canvis = 10002;
 $portada ="https://placehold.co/1060x560/5522aa/FFF";
 $datosper[] = ["id_canal" => $idcan, "nom_can" => $nombre, "img_perfil" => $img_per, "suscriptores" => $subs, "cant_videos" => $canvid, "cant_vistas" => $canvis, "img_portada" => $portada];
 // Convertir a JSON para manejar con JS
-for ($i = 0; $i < 6; $i++) {
+for ($i = 0; $i < 5; $i++) {
     $responses[] = ["thumbnail" => $imageUrl, "description" => $description, "id" => $idvid, "duration" => $duracion, "title" => $titulo, "publishedAt" => $fecha, "views" => $vistas, "likes" => $likes, "comments" => $coment];
     $responses[] = ["thumbnail" => $imageUrl2, "description" => $description2, "id" => $idvid2, "duration" => $duracion2, "title" => $titulo2, "publishedAt" => $fecha2, "views" => $vistas2, "likes" => $likes2, "comments" => $coment2];
     $responses[] = ["thumbnail" => $imageUrl3, "description" => $description3, "id" => $idvid3, "duration" => $duracion3, "title" => $titulo3, "publishedAt" => $fecha3, "views" => $vistas3, "likes" => $likes3, "comments" => $coment3];
     $responses[] = ["thumbnail" => $imageUrl2, "description" => $description2, "id" => $idvid2, "duration" => $duracion2, "title" => $titulo2, "publishedAt" => $fecha2, "views" => $vistas2, "likes" => $likes2, "comments" => $coment2];
+    $responses[] = ["thumbnail" => $imageUrl, "description" => $description, "id" => $idvid, "duration" => $duracion, "title" => $titulo, "publishedAt" => $fecha, "views" => $vistas, "likes" => $likes, "comments" => $coment];
 }
 $datos = json_encode($datosper);
 $videos = json_encode($responses);
@@ -102,7 +103,7 @@ $videos = json_encode($responses);
             .then(data => {
                 document.getElementById('muestras').innerHTML = data;
                 // Volver a asociar los eventos después de cargar el nuevo contenido
-                cargarvideos(); 
+                widget1(); 
             })
             .catch(error => {
                 console.error(error);

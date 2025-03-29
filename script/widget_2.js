@@ -2,7 +2,37 @@
 // No es necesario usar 'DOMContentLoaded' aquí ya que los eventos deben asignarse después de cargar el contenido dinámico
 
 let currentIndex = 0;
+function widget1() {
+  // Lógica para manejar la navegación del carrusel
 
+  function nextPage() {
+    const slides = document.querySelectorAll(".carousel-slide");
+    const totalSlides = slides.length;
+
+    if (currentIndex < totalSlides - 1) {
+      currentIndex++;
+      updateCarousel();
+    }
+  }
+
+  function prevPage() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  }
+
+  function updateCarousel() {
+    const gallery = document.querySelector(".gallery");
+    const offset = -currentIndex * 100; // Mover el carrusel en porcentaje
+    gallery.style.transform = `translateX(${offset}%)`;
+  }
+
+  // Opcional: Ejecutar alguna acción cuando se cargue la página
+  window.onload = () => {
+    updateCarousel();
+  };
+}
 function asignarEventosCarousel() {
   const slides = document.querySelectorAll(".carousel-slide");
   const totalSlides = slides.length;

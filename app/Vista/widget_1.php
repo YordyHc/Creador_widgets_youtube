@@ -1,10 +1,60 @@
 <?php
+// URL de las imágenes y descripciones
+/*$idvid = "12546398";
+$imageUrl = "https://placehold.co/560x315/000000/FFF";
+$description = "Esta es una descripción de la imagen.";
+$duracion = "14:23";
+$titulo = "HOY SE COME";
+$fecha = "12/02/2022";
+$vistas = 18888;
+$likes = 12;
+$coment = 25;
+$idvid2 = "4546398";
+$imageUrl2 = "https://placehold.co/560x315/00cc00/FFF";
+$description2 = "Segunda descripción de la imagen.";
+$duracion2 = "10:57";
+$titulo2 = "NUNVCA MAAASS";
+$fecha2 = "08/02/2021";
+$vistas2 = 18;
+$likes2 = 1;
+$coment2 = 10;
+$idvid3 = "78046398";
+$imageUrl3 = "https://placehold.co/560x315/bbcc00/FFF";
+$description3 = "Tercera descripción de la imagen.";
+$duracion3 = "07:15";
+$titulo3 = "UN DIA MAS";
+$fecha3 = "22/05/2018";
+$vistas3 = 1758;
+$likes3 = 25;
+$coment3 = 27;
+
+$responses = [];
+
+$datosper = [];
+$idcan = "125483325";
+$nombre = "YORDICIIITO";
+$img_per = "https://placehold.co/560x560/bb05aa/FFF";
+$subs = 152;
+$canvid = 12;
+$canvis = 10002;
+$portada ="https://placehold.co/1060x560/5522aa/FFF";
+$datosper[] = ["id_canal" => $idcan, "nom_can" => $nombre, "img_perfil" => $img_per, "suscriptores" => $subs, "cant_videos" => $canvid, "cant_vistas" => $canvis, "img_portada" => $portada];
+// Convertir a JSON para manejar con JS
+for ($i = 0; $i < 6; $i++) {
+    $responses[] = ["thumbnail" => $imageUrl, "description" => $description, "id" => $idvid, "duration" => $duracion, "title" => $titulo, "publishedAt" => $fecha, "views" => $vistas, "likes" => $likes, "comments" => $coment];
+    $responses[] = ["thumbnail" => $imageUrl2, "description" => $description2, "id" => $idvid2, "duration" => $duracion2, "title" => $titulo2, "publishedAt" => $fecha2, "views" => $vistas2, "likes" => $likes2, "comments" => $coment2];
+    $responses[] = ["thumbnail" => $imageUrl3, "description" => $description3, "id" => $idvid3, "duration" => $duracion3, "title" => $titulo3, "publishedAt" => $fecha3, "views" => $vistas3, "likes" => $likes3, "comments" => $coment3];
+    $responses[] = ["thumbnail" => $imageUrl2, "description" => $description2, "id" => $idvid2, "duration" => $duracion2, "title" => $titulo2, "publishedAt" => $fecha2, "views" => $vistas2, "likes" => $likes2, "comments" => $coment2];
+}
+$datos = $datosper;
+$videos = $responses;*/
 // Recibir los datos enviados a través de POST
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Acceder a los datos enviados
 $videos = $data['videos'];  // Los datos de los videos
-$datos = $data['datos'];    // Los datos adicionales
+$datos = $data['datos'];  
+$chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,74 +64,6 @@ $datos = $data['datos'];    // Los datos adicionales
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/creacion_widgets_youtube/style/widget_1.css">
     <title>widget 1</title>
-    <script>
-        let videos = <?php echo $videos; ?>; 
-        let currentIndex = 0;
-        const videosPerPage = 3;
-
-        function renderVideos() {
-            const gallery = document.querySelector('.gallery');
-            gallery.innerHTML = '';
-            for (let i = currentIndex; i < currentIndex + videosPerPage && i < videos.length; i++) {
-                let id_vid = videos[i]["id"];
-                let imagen = videos[i]["thumbnail"];
-                let duracion = videos[i]["duration"];
-                let titulo = videos[i]["title"];
-                let fecha = videos[i]["publishedAt"];
-                let vista = videos[i]["views"];
-                let likes = videos[i]["likes"];
-                let coment = videos[i]["comments"];
-                
-                gallery.innerHTML += `
-                    <div class="video" onclick="playvideo(\'${id_vid}\',\'${titulo}\',\'${vista}\')">
-                        <img src="${imagen}" alt="Miniatura 3" class="thumbnail">
-                        <button class='play-button'></button>
-                        <span class='video-duration'>${duracion}</span>
-                        <p class="video-title"><strong>${titulo}</strong></p>
-                        <p class="video-info">${fecha}</p><br><br>
-                        <p class="video-info">${vista} vistas • ${likes} likes • ${coment} comentarios</p>
-                    </div>`;
-            }
-            updatePagination();
-        }
-
-        function updatePagination() {
-            const pagination = document.querySelector('.pagination');
-            pagination.innerHTML = '';
-            let totalPages = Math.ceil(videos.length / videosPerPage);
-            for (let i = 0; i < totalPages; i++) {
-                pagination.innerHTML += `<button class="${i * videosPerPage === currentIndex ? 'active' : ''}" onclick="goToPage(${i})">${i + 1}</button>`;
-            }
-        }
-
-        function goToPage(page) {
-            currentIndex = page * videosPerPage;
-            renderVideos();
-        }
-
-        function nextPage() {
-            if (currentIndex + videosPerPage < videos.length) {
-                currentIndex += videosPerPage;
-                renderVideos();
-            }
-        }
-
-        function prevPage() {
-            if (currentIndex - videosPerPage >= 0) {
-                currentIndex -= videosPerPage;
-                renderVideos();
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderVideos();
-        });
-
-        function playVideo(videoId) {
-            alert("Reproduciendo video: " + videoId);
-            
-        }
-    </script>
 </head>
 <body>
 <div class="container-fluid ">
@@ -98,11 +80,31 @@ $datos = $data['datos'];    // Los datos adicionales
                 </button>
                 <br><br><br>
             </div><br>
-            <div class="gallery-container">
+            <center><div class="gallery-container">
                 <button class="gallery-nav-btn gallery-prev" onclick="prevPage()">❮</button>
-                <div class="gallery"></div>
+                <div class="gallery">
+                    <?php foreach ($chunkedVideos as $chunk): ?>
+                    <div class="carousel-slide">
+                        <?php foreach ($chunk as $video): ?>
+                        <div class="video" onclick="playvideo('<?=$video['id']?>','<?=$video['title']?>','<?=$video['views']?>')">
+                            <div class="miniatura">
+                                <img src="<?=$video["thumbnail"]?>" alt="Miniatura 3" class="thumbnail">
+                                <button class="play-button"></button>
+                                <span class="video-duration"><?=$video['duration']?></span>
+                            </div>
+                            <div class="texto">
+                                <p class="video-title"><strong><?=$video['title']?></strong></p>
+                                <p class="video-info"><?=$video['publishedAt']?></p><br><br>
+                                <p class="video-info"><?=$video['views']?> vistas • <?=$video['likes']?> likes • <?=$video['comments']?> comentarios</p>
+                            </div>
+                        </div>
+                        
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
                 <button class="gallery-nav-btn gallery-next" onclick="nextPage()">❯</button>
-            </div><br><br><br><br><br><br><br>
+            </div></center><br><br><br><br><br><br><br>
             <div class="controls">
                 <div class="pagination"></div>
             </div>
@@ -125,7 +127,73 @@ $datos = $data['datos'];    // Los datos adicionales
             </div>
         </div>
     </div>
-    
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const slides = document.querySelectorAll(".carousel-slide");
+    const totalSlides = slides.length;
+    const itemsPerPage = 1; // Un slide por página
+    let currentIndex = 0;
+    const paginationContainer = document.querySelector(".pagination");
+
+    // Generar los botones de paginación
+    const totalPages = Math.ceil(totalSlides / itemsPerPage);
+    for (let i = 0; i < totalPages; i++) {
+        const pageButton = document.createElement("button");
+        pageButton.textContent = i + 1;
+        pageButton.classList.add("pagination-btn");
+        pageButton.addEventListener("click", () => goToPage(i));
+        paginationContainer.appendChild(pageButton);
+    }
+
+    // Navegar a una página específica
+    function goToPage(pageIndex) {
+        currentIndex = pageIndex;
+        updateCarousel();
+        updatePagination();
+    }
+
+    // Función para actualizar la vista del carrusel
+    function updateCarousel() {
+        const gallery = document.querySelector(".gallery");
+        const offset = -currentIndex * 100; // Desplazamiento por cada slide
+        gallery.style.transform = `translateX(${offset}%)`;
+    }
+
+    // Actualizar los estilos de los botones de paginación
+    function updatePagination() {
+        const pageButtons = document.querySelectorAll(".pagination-btn");
+        pageButtons.forEach((button, index) => {
+            if (index === currentIndex) {
+                button.classList.add("active"); // Resaltar el botón activo
+            } else {
+                button.classList.remove("active");
+            }
+        });
+    }
+
+    // Configurar los botones de siguiente y anterior
+    document.querySelector(".gallery-next").addEventListener("click", () => {
+        if (currentIndex < totalSlides - 1) {
+            currentIndex++; // Avanza al siguiente slide
+            updateCarousel();
+            updatePagination();
+        }
+    });
+
+    document.querySelector(".gallery-prev").addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--; // Retrocede al slide anterior
+            updateCarousel();
+            updatePagination();
+        }
+    });
+
+    // Inicializa la paginación
+    updatePagination();
+});
+
+</script>
+
     <script>
         var modal = document.getElementById("myModal");
         var closeBtn = document.getElementsByClassName("close")[0];
