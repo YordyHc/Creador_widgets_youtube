@@ -64,6 +64,7 @@ $videos = json_encode($responses);
             <div class="head_opcion container">
                 <p>Seleccione una platilla</p>
             </div>
+            <div class="input-container container" id="input-container"></div>
             <div class="opcion container border" onclick="cargarWidget1()">
                 <img src="https://placehold.co/150x150" class="img-fluid" alt="opcion_1">
                 <p>galeria</p>
@@ -80,11 +81,58 @@ $videos = json_encode($responses);
                 <img src="https://placehold.co/150x150/ecac00/000" class="img-fluid" alt="opcion_4">    
                 <p>galeria</p>
             </div>
+            <div class="elegir container border">
+                <button class="btn btn-enbusca "onclick="pasarABuscar()">Continuar con esta plantilla</button>
+            </div>
         </div>
         <div class="muestras container border" id="muestras">
         </div>
     </div>
     <script>
+        // Función que se ejecuta cuando se presiona el botón
+        function pasarABuscar() {
+            // Cambiar el texto en el div con clase 'head_opcion'
+            const headOpcion = document.querySelector('.head_opcion p');
+            headOpcion.textContent = "Fuente";
+
+            // Eliminar todos los div con la clase 'opcion'
+            const opciones = document.querySelectorAll('.opcion');
+            opciones.forEach(opcion => {
+                opcion.remove();
+            });
+
+            // Crear una nueva caja de texto (input) y un label
+            const inputContainer = document.getElementById('input-container');
+            
+            // Crear el label
+            const label = document.createElement('label');
+            label.textContent = 'Ingresa URL de canal de YouTube';
+            label.setAttribute('for', 'userInput');  // Asegura que el label se asocie con el input
+
+            // Crear un nuevo input
+            const newInput = document.createElement('input');
+            newInput.type = 'text';
+            newInput.id = 'userInput';  // Asignamos un id al input
+            newInput.classList.add('form-control');
+            newInput.placeholder = 'URL';
+            newInput.value = 'https://www.youtube.com/channel/UCdcF7At6z9uYbuPZiIYNkYQ';  // Asignamos un valor predeterminado al input
+            
+            const nbtn = document.createElement('button');
+            nbtn.id = 'btn-probar';
+            nbtn.classList.add('btn-probar', 'btn', 'btn-primary');
+            nbtn.textContent = 'Probar';
+            nbtn.onclick = probarUrlWidget;
+
+
+            // Agregar el label y el input al contenedor de inputs
+            inputContainer.appendChild(label);
+            inputContainer.appendChild(newInput);
+            inputContainer.appendChild(nbtn);
+        }
+
+        function probarUrlWidget(){
+            console.log("si diooooos");
+        }
         var datosData = <?php echo $datos; ?>;
         var videosData = <?php echo $videos; ?>;
 

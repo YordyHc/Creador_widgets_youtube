@@ -17,7 +17,18 @@
   cursor: pointer;
   text-align: center;
 }
-
+.btn-enbusca {
+  width: 100%;
+  height: 80%;
+  background-color: #3fab42; /* Fondo verde */
+  color: white; /* Texto blanco */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 20px;
+}
+.btn-enbusca:hover {
+  background-color: #59a75a;
+  color: white;
+}
 .muestras {
   width: 73%;
   height: 550px;
