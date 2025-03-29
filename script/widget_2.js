@@ -3,36 +3,111 @@
 
 let currentIndex = 0;
 function widget1() {
-  // Lógica para manejar la navegación del carrusel
+  const slides = document.querySelectorAll(".carousel-slide");
+  const totalSlides = slides.length;
+  const itemsPerPage = 1; // Un slide por página
+  let currentIndex = 0;
+  const paginationContainer = document.querySelector(".pagination");
 
-  function nextPage() {
-    const slides = document.querySelectorAll(".carousel-slide");
-    const totalSlides = slides.length;
-
-    if (currentIndex < totalSlides - 1) {
-      currentIndex++;
-      updateCarousel();
-    }
+  // Generar los botones de paginación
+  const totalPages = Math.ceil(totalSlides / itemsPerPage);
+  for (let i = 0; i < totalPages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i + 1;
+    pageButton.classList.add("pagination-btn");
+    pageButton.addEventListener("click", () => goToPage(i));
+    paginationContainer.appendChild(pageButton);
   }
 
-  function prevPage() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateCarousel();
-    }
+  // Navegar a una página específica
+  function goToPage(pageIndex) {
+    currentIndex = pageIndex;
+    updateCarousel();
+    updatePagination();
   }
 
+  // Función para actualizar la vista del carrusel
   function updateCarousel() {
     const gallery = document.querySelector(".gallery");
-    const offset = -currentIndex * 100; // Mover el carrusel en porcentaje
+    const offset = -currentIndex * 100; // Desplazamiento por cada slide
     gallery.style.transform = `translateX(${offset}%)`;
   }
 
-  // Opcional: Ejecutar alguna acción cuando se cargue la página
-  window.onload = () => {
-    updateCarousel();
-  };
+  // Actualizar los estilos de los botones de paginación
+  function updatePagination() {
+    const pageButtons = document.querySelectorAll(".pagination-btn");
+    pageButtons.forEach((button, index) => {
+      if (index === currentIndex) {
+        button.classList.add("active"); // Resaltar el botón activo
+      } else {
+        button.classList.remove("active");
+      }
+    });
+  }
+
+  // Funcionalidad para el botón "next" (siguiente)
+  document.querySelector(".gallery-next").addEventListener("click", () => {
+    if (currentIndex < totalSlides - 1) {
+      currentIndex++; // Avanza al siguiente slide
+      updateCarousel();
+      updatePagination();
+    }
+  });
+
+  // Funcionalidad para el botón "prev" (anterior)
+  document.querySelector(".gallery-prev").addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--; // Retrocede al slide anterior
+      updateCarousel();
+      updatePagination();
+    }
+  });
 }
+
+function initializeModal() {
+  var modal = document.getElementById("myModal");
+  var closeBtn = document.getElementsByClassName("close")[0];
+  var videoFrame = document.getElementById("videoFrame");
+
+  // Cerrar el modal
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+    videoFrame.src = ""; // Detener el video
+  };
+
+  // Cerrar el modal si se hace clic fuera del modal
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      videoFrame.src = ""; // Detener el video
+    }
+  };
+
+  // Función para abrir el modal con el video
+  function playvideoFromData(videoElement) {
+    var videoId = videoElement.getAttribute("data-video-id");
+    var videoTitle = videoElement.getAttribute("data-video-title");
+    var videoViews = videoElement.getAttribute("data-video-views");
+
+    modal.style.display = "flex"; // Mostrar el modal
+    videoFrame.src =
+      "https://www.youtube.com/embed/" +
+      videoId +
+      "?si=bAtHCHmwT3C25Gry&autoplay=1&rel=0";
+    document.getElementById("modal_titulo").innerText = videoTitle;
+    document.getElementById("md_views").innerText = videoViews + " vistas";
+  }
+
+  // Asocia la función `playvideoFromData` a cada video cargado en el contenido dinámico
+  var videoElements = document.querySelectorAll(".video");
+  videoElements.forEach(function (videoElement) {
+    // Asociar el evento de clic con la función
+    videoElement.onclick = function () {
+      playvideoFromData(videoElement);
+    };
+  });
+}
+
 function asignarEventosCarousel() {
   const slides = document.querySelectorAll(".carousel-slide");
   const totalSlides = slides.length;

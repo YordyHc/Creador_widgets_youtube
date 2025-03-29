@@ -103,7 +103,6 @@ a:hover {
   flex: none;
 }
 .video {
-  text-align: center;
   position: relative;
   cursor: pointer;
 }
@@ -180,11 +179,11 @@ a:hover {
   color: #000000;
   position: absolute;
   top: 50%;
-  transform: translateY(-70%);
+  transform: translateY(-80%);
   background: #ede6e6;
   border: none;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
@@ -286,7 +285,8 @@ a:hover {
 
 .pagination-btn {
   background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  border: none;
+  color: #a5a5a5;
   margin: 0 5px;
   padding: 5px 10px;
   cursor: pointer;
@@ -294,8 +294,8 @@ a:hover {
 }
 
 .pagination-btn.active {
-  background-color: #007bff;
-  color: white;
+  background-color: #a5a5a5;
+  color: #000000;
 }
 
 .pagination-btn:hover {

@@ -74,37 +74,40 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
             <div class="profile"><br><br><br><br><br>
                 <img src="<?= $datos[0]['img_perfil']?>"  alt="Perfil">
                 <h2><a href="https://www.youtube.com/channel/<?= $datos[0]['id_canal']?>"><?= $datos[0]['nom_can'] ?></a></h2><br><br>
-                <p class="stats"><?= $datos[0]['suscriptores'] ?> Suscriptores • 11K Videos • 198 Vistas</p>
+                <p class="stats"><?= $datos[0]['suscriptores'] ?> Suscriptores • 11K Videos • 200 Vistas</p>
                 <button class="subscribe-btn btn">
                     <i class="fa-brands fa-youtube"></i> Youtube 32M
                 </button>
                 <br><br><br>
             </div><br>
             <center><div class="gallery-container">
-                <button class="gallery-nav-btn gallery-prev" onclick="prevPage()">❮</button>
+                <button class="gallery-nav-btn btn gallery-prev" onclick="prevPage()">❮</button>
                 <div class="gallery">
                     <?php foreach ($chunkedVideos as $chunk): ?>
-                    <div class="carousel-slide">
-                        <?php foreach ($chunk as $video): ?>
-                        <div class="video" onclick="playvideo('<?=$video['id']?>','<?=$video['title']?>','<?=$video['views']?>')">
-                            <div class="miniatura">
-                                <img src="<?=$video["thumbnail"]?>" alt="Miniatura 3" class="thumbnail">
-                                <button class="play-button"></button>
-                                <span class="video-duration"><?=$video['duration']?></span>
-                            </div>
-                            <div class="texto">
-                                <p class="video-title"><strong><?=$video['title']?></strong></p>
-                                <p class="video-info"><?=$video['publishedAt']?></p><br><br>
-                                <p class="video-info"><?=$video['views']?> vistas • <?=$video['likes']?> likes • <?=$video['comments']?> comentarios</p>
-                            </div>
+                        <div class="carousel-slide">
+                            <?php foreach ($chunk as $video): ?>
+                                <div class="video" 
+                                    data-video-id="<?= htmlspecialchars($video['id'], ENT_QUOTES, 'UTF-8') ?>" 
+                                    data-video-title="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>" 
+                                    data-video-views="<?= htmlspecialchars($video['views'], ENT_QUOTES, 'UTF-8') ?>"
+                                    onclick="playvideoFromData(this)">
+                                    <div class="miniatura">
+                                        <img src="<?=$video["thumbnail"]?>" alt="Miniatura 3" class="thumbnail">
+                                        <button class="play-button"></button>
+                                        <span class="video-duration"><?=$video['duration']?></span>
+                                    </div>
+                                    <div class="texto">
+                                        <p class="video-title"><strong><?=$video['title']?></strong></p>
+                                        <p class="video-info"><?=$video['publishedAt']?></p><br><br>
+                                        <p class="video-info"><?=$video['views']?> vistas • <?=$video['likes']?> likes • <?=$video['comments']?> comentarios</p>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                        
-                        <?php endforeach; ?>
-                    </div>
                     <?php endforeach; ?>
                 </div>
-                <button class="gallery-nav-btn gallery-next" onclick="nextPage()">❯</button>
-            </div></center><br><br><br><br><br><br><br>
+                <button class="gallery-nav-btn btn gallery-next" onclick="nextPage()">❯</button>
+            </div></center><br><br><br>
             <div class="controls">
                 <div class="pagination"></div>
             </div>

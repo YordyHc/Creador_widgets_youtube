@@ -104,6 +104,7 @@ $videos = json_encode($responses);
                 document.getElementById('muestras').innerHTML = data;
                 // Volver a asociar los eventos después de cargar el nuevo contenido
                 widget1(); 
+                initializeModal();
             })
             .catch(error => {
                 console.error(error);
