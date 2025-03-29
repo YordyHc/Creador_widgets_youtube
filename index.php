@@ -9,16 +9,18 @@
 </head>
 <body>
     <?php
-    //require_once 'app/Controller/VideoController.php';
+    require_once 'app/Control/Control_funcion.php';
 
     $request = $_SERVER['REQUEST_URI'];
 
     $request = strtok($request, '?');
 
     if ($request == '/' || $request == '/creacion_widgets_youtube/') {
+        $controller = new mostrarIndex();
+        $controller->mostrarOpciones();  
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_1.php';
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_4.php';
-        include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/index.php';
+        //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/index.php';
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_3.php';
         //include $_SERVER['DOCUMENT_ROOT'] . '/creacion_widgets_youtube/app/Vista/widget_2.php';
         //$controller = new VideoController();
