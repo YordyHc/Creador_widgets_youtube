@@ -69,12 +69,14 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
 <div class="container-fluid ">
         <div class="container-fluid">
             <div class="header-container" >
-                <img src="<?= $datos[0]['img_portada'] ?>" class="rounded-top"alt="Banner">
+                <img src="<?= isset($datos[0]) ? $datos[0]['img_portada'] : (isset($datos['img_portada']) ? $datos['img_portada'] : 'No se encontró la imagen de portada.');?>" class="rounded-top"alt="Banner">
             </div><br><br>
             <div class="profile"><br><br><br><br><br>
-                <img src="<?= $datos[0]['img_perfil']?>"  alt="Perfil">
-                <h2><a href="https://www.youtube.com/channel/<?= $datos[0]['id_canal']?>"><?= $datos[0]['nom_can'] ?></a></h2><br><br>
-                <p class="stats"><?= $datos[0]['suscriptores'] ?> Suscriptores • 11K Videos • 200 Vistas</p>
+                <img src="<?=isset($datos[0]) ? $datos[0]['img_perfil'] : (isset($datos['img_perfil']) ? $datos['img_perfil'] : 'No se encontró la imagen de perfil.');?>"  alt="Perfil">
+                <h2><a href="https://www.youtube.com/channel/<?=isset($datos[0]) ? $datos[0]['id_canal'] : (isset($datos['id_canal']) ? $datos['id_canal'] : 'No se encontró id');?>"><?= isset($datos[0]) ? $datos[0]['nom_can'] : (isset($datos['nom_can']) ? $datos['nom_can'] : 'No se encontró nombre'); ?></a></h2><br><br>
+                <p class="stats"><?= isset($datos[0]) ? $datos[0]['suscriptores'] : (isset($datos['suscriptores']) ? $datos['suscriptores'] : 'No se encontro subs');?> Suscriptores • 
+                <?=isset($datos[0]) ? $datos[0]['cant_videos'] : (isset($datos['cant_videos']) ? $datos['cant_videos'] : 'No se encontro videos');?> Videos • 
+                <?=isset($datos[0]) ? $datos[0]['cant_vistas'] : (isset($datos['cant_vistas']) ? $datos['cant_vistas'] : 'No se encontro vistas');?> Vistas</p>
                 <button class="subscribe-btn btn">
                     <i class="fa-brands fa-youtube"></i> Youtube 32M
                 </button>

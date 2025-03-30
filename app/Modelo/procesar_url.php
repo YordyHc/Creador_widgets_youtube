@@ -17,9 +17,7 @@ if (isset($data['channelId']) || isset($data['username'])) {
     // Obtener los datos de los videos y el perfil
     $videos = $youtubeModel->get_dat_videos();
     $datos = $youtubeModel->get_profile();
-
-    // Convertir los datos de videos y perfil en arrays si es necesario
-    // Aquí asumimos que las funciones `get_dat_videos()` y `get_profile()` ya retornan los datos en formato adecuado.
+    
     $response = [
         'videos' => json_decode($videos, true),  // Convertir a array si es necesario
         'perfil' => json_decode($datos, true)    // Convertir a array si es necesario

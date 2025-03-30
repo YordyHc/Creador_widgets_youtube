@@ -37,6 +37,7 @@
         </div>
     </div>
     <script>
+        var widget = 1;
         // Función que se ejecuta cuando se presiona el botón
         function pasarABuscar() {
             // Cambiar el texto en el div con clase 'head_opcion'
@@ -86,6 +87,93 @@
             elecont.appendChild(btnSeleccionar);
         }
 
+        var datosData = <?php echo $datos; ?>;
+        var videosData = <?php echo $videos; ?>;
+
+        function cargarWidget1() {
+            fetch('app/Vista/widget_1.php',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    videos: videosData,  // Enviar videosData
+                    datos: datosData      // Enviar datosData
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('muestras').innerHTML = data;
+                // Volver a asociar los eventos después de cargar el nuevo contenido
+                widget = 1;
+                widget1(); 
+                initializeModal();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+        function cargarWidget2() {
+            fetch('app/Vista/widget_2.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ videos: videosData }) // Envía los datos de videos en el cuerpo de la solicitud
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('muestras').innerHTML = data;
+                widget = 2;
+                asignarEventosCarousel();
+            }).catch(error => {
+                console.error(error);
+            });
+        }
+
+        // Función para cambiar a Documento 3 cuando se presiona el botón
+        function cargarWidget3() {
+            fetch('app/Vista/widget_3.php',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({videos: videosData})
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('muestras').innerHTML = data;
+                // Volver a asociar los eventos después de cargar el nuevo contenido
+                widget = 3;
+                agregarEventos();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+
+        function cargarWidget4() {
+            fetch('app/Vista/widget_4.php',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({videos: videosData})
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('muestras').innerHTML = data;
+                // Volver a asociar los eventos después de cargar el nuevo contenido
+                widget = 4;
+                carrusel4();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+
+        // Cargar inicialmente el Documento 2 al cargar la página
+        window.onload = cargarWidget1;
         function probarUrlWidget() {
             // Obtener el valor del input
             const input = document.getElementById('userInput');
@@ -136,9 +224,21 @@
                             if (response.status && response.status === 'error') {
                                 console.error('Error desde el servidor:', response.message);
                             } else {
-                                console.log('Respuesta del servidor:', response);
-                                // Aquí puedes procesar la respuesta, por ejemplo:
-                                // Mostrar los datos del canal, videos, etc.
+
+                                console.log('Si hay respuesta de servidor'/*, response*/);
+                                // Acceder a los datos correctamente
+                                datosData = response.perfil; // Datos del perfil
+                                videosData = response.videos; // Datos de los videos
+                                if (widget == 1) {
+                                    console.log('actualizar widget 1');
+                                    cargarWidget1();
+                                } else if (widget == 2) {
+                                    cargarWidget2();
+                                } else if (widget == 3) {
+                                    cargarWidget3();
+                                } else if (widget == 4) {
+                                    cargarWidget4();
+                                }
                             }
                         } catch (e) {
                             console.error('Error al parsear la respuesta JSON:', e);
@@ -162,87 +262,6 @@
         function crearWidget(){
             console.log("creando widget");
         }
-        var datosData = <?php echo $datos; ?>;
-        var videosData = <?php echo $videos; ?>;
-
-        function cargarWidget1() {
-            fetch('app/Vista/widget_1.php',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                    videos: videosData,  // Enviar videosData
-                    datos: datosData      // Enviar datosData
-                })
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('muestras').innerHTML = data;
-                // Volver a asociar los eventos después de cargar el nuevo contenido
-                widget1(); 
-                initializeModal();
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
-        function cargarWidget2() {
-            fetch('app/Vista/widget_2.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ videos: videosData }) // Envía los datos de videos en el cuerpo de la solicitud
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('muestras').innerHTML = data;
-                asignarEventosCarousel();
-            });
-        }
-
-        // Función para cambiar a Documento 3 cuando se presiona el botón
-        function cargarWidget3() {
-            fetch('app/Vista/widget_3.php',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({videos: videosData})
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('muestras').innerHTML = data;
-                // Volver a asociar los eventos después de cargar el nuevo contenido
-                agregarEventos();
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
-
-        function cargarWidget4() {
-            fetch('app/Vista/widget_4.php',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({videos: videosData})
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('muestras').innerHTML = data;
-                // Volver a asociar los eventos después de cargar el nuevo contenido
-                carrusel4();
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
-
-        // Cargar inicialmente el Documento 2 al cargar la página
-        window.onload = cargarWidget1;
         </script>
 
   <script src="/creacion_widgets_youtube/script/asignarEventos.js"></script>
