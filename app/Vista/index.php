@@ -86,22 +86,76 @@
             elecont.appendChild(btnSeleccionar);
         }
 
-
-        function probarUrlWidget(){
+        function probarUrlWidget() {
             // Obtener el valor del input
             const input = document.getElementById('userInput');
             const url = input.value;
 
-             // Mostrar el valor ingresado en la consola
+            // Mostrar el valor ingresado en la consola
             console.log('Valor ingresado en el input:', url);
 
             // Validar si la URL es un canal de YouTube
-            const youtubePattern = /^https?:\/\/(www\.)?youtube\.com\/(channel\/[a-zA-Z0-9_-]+|user\/[a-zA-Z0-9_-]+|c\/[a-zA-Z0-9_-]+)$/;
+            const youtubePattern = /^https?:\/\/(www\.)?youtube\.com\/(channel\/([a-zA-Z0-9_-]+)|c\/([a-zA-Z0-9_-]+)|user\/([a-zA-Z0-9_-]+)|@([a-zA-Z0-9_]+))$/;
+            const match = url.match(youtubePattern);
+            
+            if (url && match) {
+                console.log('La URL es un canal de YouTube válido:', url);
 
-            if (url && youtubePattern.test(url)) {
-            console.log('La URL es un canal de YouTube válido:', url);
+                // Extraer el ID del canal o el nombre de usuario dependiendo de la URL
+                let channelId = '';
+                let username = '';
+
+                // Revisar las posibles posiciones de los valores en la expresión regular
+                if (match[3]) {
+                    channelId = match[3]; // Canal con ID (channel/)
+                } else if (match[4]) {
+                    channelId = match[4]; // Canal con ID (c/)
+                } else if (match[5]) {
+                    username = match[5]; // Canal con nombre de usuario (user/)
+                } else if (match[6]) {
+                    username = match[6]; // Canal con nombre de usuario (@)
+                }
+
+                // Preparar los datos para la solicitud AJAX
+                const data = {
+                    channelId: channelId,
+                    username: username
+                };
+
+                // Realizar la solicitud AJAX
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'app/Modelo/procesar_url.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        try {
+                            // Verificar si la respuesta es JSON válida
+                            const response = JSON.parse(xhr.responseText);
+
+                            // Comprobar si la respuesta tiene un status de error
+                            if (response.status && response.status === 'error') {
+                                console.error('Error desde el servidor:', response.message);
+                            } else {
+                                console.log('Respuesta del servidor:', response);
+                                // Aquí puedes procesar la respuesta, por ejemplo:
+                                // Mostrar los datos del canal, videos, etc.
+                            }
+                        } catch (e) {
+                            console.error('Error al parsear la respuesta JSON:', e);
+                            console.error('Respuesta del servidor:', xhr.responseText); // Muestra la respuesta completa para depuración
+                        }
+                    } else {
+                        console.error('Error al procesar la solicitud. Estado HTTP:', xhr.status);
+                    }
+                };
+
+                xhr.onerror = function () {
+                    console.error('Error de red o problema con la solicitud AJAX');
+                };
+                xhr.send(JSON.stringify(data));
             } else {
-            console.log('La URL no es un canal de YouTube válido.');
+                console.log('La URL no es un canal de YouTube válido.');
+                // Aquí también puedes agregar un mensaje de error visible al usuario si lo deseas.
             }
         }
 

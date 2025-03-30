@@ -1,6 +1,6 @@
 <?php
 
-//require_once 'config.php';
+//require_once 'includes/config.php';
 
 
 class YouTubeModel {
@@ -15,6 +15,27 @@ class YouTubeModel {
     }
 
     public function get_dat_videos(){
+        /*$url = "https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id={$this->channelId}&key={$this->apiKey}";
+        
+        $response = file_get_contents($url);
+        $data = json_decode($response, true);
+        
+        $datos_perfil = [];
+        if (!empty($data['items'][0])) {
+            $channel = $data['items'][0];
+            $datoss= [
+                "id_canal" => $this->channelId,
+                "nom_can" => $channel['snippet']['title'],
+                'img_perfil'=> $channel['snippet']['thumbnails']['high']['url'],
+                'suscriptores' => $this->redondeo($channel['statistics']['subscriberCount']),
+                'cant_videos' => $this->redondeo($channel['statistics']['videoCount']),
+                'cant_vistas' => $this->redondeo($channel['statistics']['viewCount']),
+                'img_portada' => $channel['brandingSettings']['image']['bannerExternalUrl']."=w2560-fcrop64=1,00000000ffffffff-nd-c0xffffffff-rj-k-no"
+            ];
+            return $datoss;
+        }else{
+            return $datos_perfil;
+        }*/
         // URL de las imágenes y descripciones
         $idvid = "12546398";
         $imageUrl = "https://placehold.co/560x315/ccddee/FFF";
