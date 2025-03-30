@@ -81,7 +81,7 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
                 <br><br><br>
             </div><br>
             <center><div class="gallery-container">
-                <button class="gallery-nav-btn btn gallery-prev" onclick="prevPage()">❮</button>
+                <button class="gallery-nav-btn btn gallery-prev">❮</button><!--onclick="prevPage()"-->
                 <div class="gallery">
                     <?php foreach ($chunkedVideos as $chunk): ?>
                         <div class="carousel-slide">
@@ -106,7 +106,7 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <button class="gallery-nav-btn btn gallery-next" onclick="nextPage()">❯</button>
+                <button class="gallery-nav-btn btn gallery-next">❯</button><!--onclick="nextPage()"-->
             </div></center><br><br><br>
             <div class="controls">
                 <div class="pagination"></div>

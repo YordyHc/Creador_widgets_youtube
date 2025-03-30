@@ -29,7 +29,7 @@
                 <img src="https://placehold.co/150x150/ecac00/000" class="img-fluid" alt="opcion_4">    
                 <p>galeria</p>
             </div>
-            <div class="elegir container border">
+            <div class="elegir container border" id="elegir">
                 <button class="btn btn-enbusca "onclick="pasarABuscar()">Continuar con esta plantilla</button>
             </div>
         </div>
@@ -48,10 +48,11 @@
             opciones.forEach(opcion => {
                 opcion.remove();
             });
-
+            const btnCont = document.querySelector('.btn-enbusca');
+            btnCont.remove();
             // Crear una nueva caja de texto (input) y un label
             const inputContainer = document.getElementById('input-container');
-            
+            const elecont = document.getElementById('elegir');
             // Crear el label
             const label = document.createElement('label');
             label.textContent = 'Ingresa URL de canal de YouTube';
@@ -71,15 +72,41 @@
             nbtn.textContent = 'Probar';
             nbtn.onclick = probarUrlWidget;
 
+            const btnSeleccionar = document.createElement('button');
+            btnSeleccionar.id = 'btn-selec';
+            btnSeleccionar.classList.add('btn-selec', 'btn');
+            btnSeleccionar.textContent = 'Crear Widget';
+            btnSeleccionar.onclick = crearWidget;
+
 
             // Agregar el label y el input al contenedor de inputs
             inputContainer.appendChild(label);
             inputContainer.appendChild(newInput);
             inputContainer.appendChild(nbtn);
+            elecont.appendChild(btnSeleccionar);
         }
 
+
         function probarUrlWidget(){
-            console.log("si diooooos");
+            // Obtener el valor del input
+            const input = document.getElementById('userInput');
+            const url = input.value;
+
+             // Mostrar el valor ingresado en la consola
+            console.log('Valor ingresado en el input:', url);
+
+            // Validar si la URL es un canal de YouTube
+            const youtubePattern = /^https?:\/\/(www\.)?youtube\.com\/(channel\/[a-zA-Z0-9_-]+|user\/[a-zA-Z0-9_-]+|c\/[a-zA-Z0-9_-]+)$/;
+
+            if (url && youtubePattern.test(url)) {
+            console.log('La URL es un canal de YouTube válido:', url);
+            } else {
+            console.log('La URL no es un canal de YouTube válido.');
+            }
+        }
+
+        function crearWidget(){
+            console.log("creando widget");
         }
         var datosData = <?php echo $datos; ?>;
         var videosData = <?php echo $videos; ?>;
@@ -164,6 +191,6 @@
         window.onload = cargarWidget1;
         </script>
 
-  <script src="/creacion_widgets_youtube/script/widget_2.js"></script>
+  <script src="/creacion_widgets_youtube/script/asignarEventos.js"></script>
 </body>
 </html>
