@@ -260,9 +260,10 @@
         }
 
         function crearWidget(){
-            console.log("creando widget");
+            //logica para mpostrar el script
+            console.log(retornarScript());
         }
-        </script>
+    </script>
 
   <script src="/creacion_widgets_youtube/script/asignarEventos.js"></script>
 </body>

@@ -196,3 +196,27 @@ function carrusel4() {
     ).style.transform = `translateX(${offset}%)`;
   }
 }
+
+function generarUUID() {
+  // Función para generar un UUID con el mismo patrón: 8-4-4-4-12
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+function retornarScript() {
+  console.log("Creando widget");
+
+  // Generar un UUID aleatorio
+  const uuid = generarUUID();
+
+  // Crear la cadena de salida con el formato solicitado
+  const widgetHTML = `<script src="url"></script>
+<div class="yordwid-${uuid}"></div>`;
+
+  // Retornar la cadena HTML
+  return widgetHTML;
+  //console.log(widgetHTML);
+}
