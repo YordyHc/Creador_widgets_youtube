@@ -63,6 +63,25 @@ function widget1() {
   });
 }
 
+// Función global playvideoFromData
+function playvideoFromData(videoElement) {
+  var modal = document.getElementById("myModal");
+  var videoFrame = document.getElementById("videoFrame");
+  var videoId = videoElement.getAttribute("data-video-id");
+  var videoTitle = videoElement.getAttribute("data-video-title");
+  var videoViews = videoElement.getAttribute("data-video-views");
+
+  // Mostrar el modal
+  modal.style.display = "flex";
+  videoFrame.src =
+    "https://www.youtube.com/embed/" +
+    videoId +
+    "?si=bAtHCHmwT3C25Gry&autoplay=1&rel=0";
+  document.getElementById("modal_titulo").innerText = videoTitle;
+  document.getElementById("md_views").innerText = videoViews + " vistas";
+}
+
+// Función para inicializar el modal y los eventos
 function initializeModal() {
   var modal = document.getElementById("myModal");
   var closeBtn = document.getElementsByClassName("close")[0];
@@ -82,29 +101,16 @@ function initializeModal() {
     }
   };
 
-  // Función para abrir el modal con el video
-  function playvideoFromData(videoElement) {
-    var videoId = videoElement.getAttribute("data-video-id");
-    var videoTitle = videoElement.getAttribute("data-video-title");
-    var videoViews = videoElement.getAttribute("data-video-views");
-
-    modal.style.display = "flex"; // Mostrar el modal
-    videoFrame.src =
-      "https://www.youtube.com/embed/" +
-      videoId +
-      "?si=bAtHCHmwT3C25Gry&autoplay=1&rel=0";
-    document.getElementById("modal_titulo").innerText = videoTitle;
-    document.getElementById("md_views").innerText = videoViews + " vistas";
-  }
-
   // Asocia la función `playvideoFromData` a cada video cargado en el contenido dinámico
-  var videoElements = document.querySelectorAll(".video");
+  var videoElements = document.querySelectorAll(".video-item"); // Asegúrate de que el selector sea correcto
   videoElements.forEach(function (videoElement) {
     // Asociar el evento de clic con la función
     videoElement.onclick = function () {
       playvideoFromData(videoElement);
     };
   });
+
+  console.log("Modal inicializado");
 }
 
 function asignarEventosCarousel() {
@@ -137,6 +143,8 @@ function asignarEventosCarousel() {
       ".carousel-wrapper"
     ).style.transform = `translateX(${offset}%)`;
   }
+  console.log("en dar eventos");
+  initializeModal();
 }
 
 // Llamar a esta función cada vez que cargues el contenido dinámico
@@ -168,6 +176,7 @@ function agregarEventos() {
   });
 
   updateVisibility(); // Mostrar la primera lista al cargar
+  initializeModal();
 }
 
 function carrusel4() {
@@ -195,6 +204,7 @@ function carrusel4() {
       ".carousel-wrapper"
     ).style.transform = `translateX(${offset}%)`;
   }
+  initializeModal();
 }
 
 function generarUUID() {

@@ -130,6 +130,7 @@
             .then(data => {
                 document.getElementById('muestras').innerHTML = data;
                 widget = 2;
+                console.log("en index");
                 asignarEventosCarousel();
             }).catch(error => {
                 console.error(error);

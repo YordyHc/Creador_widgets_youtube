@@ -37,7 +37,7 @@ class YouTubeModel {
             return $datos_perfil;
         }*/
         // URL de las imágenes y descripciones
-        $idvid = "12546398";
+        $idvid = "Vz6cTz3NiBw";
         $imageUrl = "https://placehold.co/560x315/ccddee/FFF";
         $description = "Esta es una descripción de la imagen tengo que agregar demasiado texto para ver que puede llegar a pasar por todo esto. tengo que agregar muchisimo mas text crj mrd";
         $duracion = "14:23";
@@ -46,7 +46,7 @@ class YouTubeModel {
         $vistas = 18888;
         $likes = 12;
         $coment = 25;
-        $idvid2 = "4546398";
+        $idvid2 = "MitSZ9ZeZxA";
         $imageUrl2 = "https://placehold.co/560x315/00cc00/FFF";
         $description2 = "Segunda descripción de la imagen.";
         $duracion2 = "10:57";
@@ -55,7 +55,7 @@ class YouTubeModel {
         $vistas2 = 18;
         $likes2 = 1;
         $coment2 = 10;
-        $idvid3 = "78046398";
+        $idvid3 = "xYoYYNDheVo";
         $imageUrl3 = "https://placehold.co/560x315/bbcc00/FFF";
         $description3 = "Tercera descripción de la imagen.";
         $duracion3 = "07:15";

@@ -22,7 +22,11 @@ $videos = $data['videos'];
             foreach ($chunkedVideos as $chunk): ?>
                 <div class="carousel-slide">
                     <?php foreach ($chunk as $video): ?>
-                        <div class="video-item">
+                        <div class="video-item"
+                            data-video-id="<?= htmlspecialchars($video['id'], ENT_QUOTES, 'UTF-8') ?>" 
+                            data-video-title="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>" 
+                            data-video-views="<?= htmlspecialchars($video['views'], ENT_QUOTES, 'UTF-8') ?>"
+                            onclick="playvideoFromData(this)">
                             <div class="miniatura">
                                 <img src="<?=$video['thumbnail']?>" alt="Imagen">
                                 <button class="play-button"></button>
@@ -44,6 +48,22 @@ $videos = $data['videos'];
             <button id="nextBtn">❯</button>
         </div>
     </div></center>
+    <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                
+                <div class="iframe-container">
+                    <iframe id="videoFrame" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+
+                
+                <div class="modal-extra-content">
+                    <p id="modal_titulo" style="font-size: 25px"></p>
+                    <p id="md_views"></p>
+                </div>
+            </div>
+        </div>
     <br>
 
     <script>
