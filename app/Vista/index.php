@@ -18,21 +18,29 @@
                 <p>Seleccione una platilla</p>
             </div>
             <div class="input-container container" id="input-container"></div>
-            <div class="opcion container border" onclick="cargarWidget1()">
-                <img src="https://placehold.co/150x150" class="img-fluid" alt="opcion_1">
-                <p>galeria</p>
+            <div class="opcion container" onclick="cargarWidget1()">
+                <div class="cont_img borde_c" id="cont_1">
+                    <img src="imagenes/img_widget_1.png" class="img-fluid" alt="opcion_1">
+                </div>
+                <p>Canal de Youtube</p>
             </div>
-            <div class="opcion container border" onclick="cargarWidget2()">
-                <img src="https://placehold.co/150x150/aa0000/FFF" class="img-fluid" alt="opcion_2">
-                <p>galeria</p>
-            </div><br>
+            <div class="opcion container" onclick="cargarWidget2()">
+                <div class="cont_img" id="cont_2">
+                    <img src="imagenes/img_widget_2.png" class="img-fluid" alt="opcion_2">
+                </div>
+                <p>Cuadricula</p>
+            </div>
             <div class="opcion container" onclick="cargarWidget3()">
-                <img src="https://placehold.co/150x150/aacc00/FFF"  class="img-fluid" alt="opcion_3">
-                <p>galeria</p>    
+                <div class="cont_img" id="cont_3">
+                    <img src="imagenes/img_widget_3.png" class="img-fluid" alt="opcion_3">
+                </div>
+                <p>Lista</p>    
             </div>
             <div class="opcion container" onclick="cargarWidget4()">
-                <img src="https://placehold.co/150x150/ecac00/000" class="img-fluid" alt="opcion_4">    
-                <p>galeria</p>
+                <div class="cont_img" id="cont_4">
+                    <img src="imagenes/img_widget_4.png" class="img-fluid" alt="opcion_4">
+                </div>   
+                <p>Galeria</p>
             </div>
             <div class="elegir container" id="elegir">
                 <button id="btn-enbusca" class="btn btn-enbusca "onclick="pasarABuscar()">Continuar con esta plantilla</button>
@@ -41,7 +49,7 @@
         <div class="muestras container" id="muestras">
         </div>
     </div>
-</div></center>
+</div></center><br>
     <script>
         var widget = 1;
         // Función que se ejecuta cuando se presiona el botón
@@ -49,7 +57,7 @@
             // Cambiar el texto en el div con clase 'head_opcion'
             const headOpcion = document.querySelector('.head_opcion p');
             headOpcion.textContent = "Fuente";
-
+            
             // Eliminar todos los div con la clase 'opcion'
             const opciones = document.querySelectorAll('.opcion');
             opciones.forEach(opcion => {
@@ -91,6 +99,16 @@
             inputContainer.appendChild(lineBreak);  // Esto agrega el <br> entre el input y el botón
             inputContainer.appendChild(nbtn);
         }
+        function bordear(id) {
+            // Obtener los elementos por su ID
+            var tenia = document.querySelector(".borde_c");
+            var tendra = document.getElementById(id);
+
+            // Quitar la clase de borde celeste de cont_1 (si la tiene)
+            // Agregar la clase de borde celeste a cont_2
+            tendra.classList.add("borde_c");
+            tenia.classList.remove("borde_c");
+        }
 
         var datosData = <?php echo $datos; ?>;
         var videosData = <?php echo $videos; ?>;
@@ -110,6 +128,9 @@
             .then(data => {
                 document.getElementById('muestras').innerHTML = data;
                 // Volver a asociar los eventos después de cargar el nuevo contenido
+                if(widget != 1){
+                    bordear("cont_1");
+                }
                 widget = 1;
                 widget1(); 
                 initializeModal();
@@ -129,8 +150,10 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('muestras').innerHTML = data;
+                if(widget != 2){
+                    bordear("cont_2");
+                }
                 widget = 2;
-                console.log("en index");
                 asignarEventosCarousel();
             }).catch(error => {
                 console.error(error);
@@ -150,6 +173,9 @@
             .then(data => {
                 document.getElementById('muestras').innerHTML = data;
                 // Volver a asociar los eventos después de cargar el nuevo contenido
+                if(widget != 3){
+                    bordear("cont_3");
+                }
                 widget = 3;
                 agregarEventos();
             })
@@ -170,6 +196,9 @@
             .then(data => {
                 document.getElementById('muestras').innerHTML = data;
                 // Volver a asociar los eventos después de cargar el nuevo contenido
+                if(widget != 4){
+                    bordear("cont_4");
+                }
                 widget = 4;
                 carrusel4();
             })

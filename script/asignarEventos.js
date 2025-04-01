@@ -109,8 +109,6 @@ function initializeModal() {
       playvideoFromData(videoElement);
     };
   });
-
-  console.log("Modal inicializado");
 }
 
 function asignarEventosCarousel() {
@@ -143,7 +141,6 @@ function asignarEventosCarousel() {
       ".carousel-wrapper"
     ).style.transform = `translateX(${offset}%)`;
   }
-  console.log("en dar eventos");
   initializeModal();
 }
 

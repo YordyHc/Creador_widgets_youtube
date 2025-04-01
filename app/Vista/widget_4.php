@@ -31,8 +31,8 @@ $videos = $data['videos'];
                                 <img src="<?=$video['thumbnail']?>" alt="Imagen">
                                 <button class="play-button"></button>
                                 <span class="video-duration"><?=$video['duration']?></span>
-                            </div>
-                            <div class="descripcion border">
+                            </div>                         
+                            <div class="descripcion">
                                 <div class="vd_titulo"><strong><?= $video['title']?></strong></div>
                                 <div class="video-info"><?=$video['publishedAt']?></div>
                                 <div class="vd-dscpn"><?=$video['description']?></div>
