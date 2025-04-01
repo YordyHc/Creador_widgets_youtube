@@ -25,7 +25,15 @@ $chunkedVideos = array_chunk($videos, 16); // Divide en grupos de 16
                     <div class="carousel-slide">
                         <?php foreach ($chunk as $video): ?>
                             <div class="video-item">
-                                <img src="<?=$video['thumbnail']?>" alt="Imagen">
+                                <img src="<?=$video['thumbnail']?>" class="thumbnail" alt="Imagen">
+                                <button class="play-button"></button>
+                                <span class="video-duration"><?=$video['duration']?></span>
+                                <div class="overlay"><br>
+                                    <div class="vd_titulo"><strong><?= $video['title']?></strong></div>
+                                    <div class="video-info"><?=$video['publishedAt']?></div>
+                                    <div class="vd-dscpn"><?=$video['description']?></div>
+                                    <div class="video-info"><?=$video['views']?> vistas • <?=$video['likes']?> likes • <?=$video['comments']?> comentarios</div>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>

@@ -39,9 +39,9 @@ class YouTubeModel {
         // URL de las imágenes y descripciones
         $idvid = "12546398";
         $imageUrl = "https://placehold.co/560x315/ccddee/FFF";
-        $description = "Esta es una descripción de la imagen.";
+        $description = "Esta es una descripción de la imagen tengo que agregar demasiado texto para ver que puede llegar a pasar por todo esto.";
         $duracion = "14:23";
-        $titulo = "HOY SE COME";
+        $titulo = "HOY SE COME, TA QUE ERA EN EL TITULO, MASW WEBON SOY";
         $fecha = "12/02/2022";
         $vistas = 18888;
         $likes = 12;
@@ -50,7 +50,7 @@ class YouTubeModel {
         $imageUrl2 = "https://placehold.co/560x315/00cc00/FFF";
         $description2 = "Segunda descripción de la imagen.";
         $duracion2 = "10:57";
-        $titulo2 = "NUNVCA MAAASS";
+        $titulo2 = "NUNCA MAAASS, tiene que ser un titulo muy grande para probar que pdos";
         $fecha2 = "08/02/2021";
         $vistas2 = 18;
         $likes2 = 1;

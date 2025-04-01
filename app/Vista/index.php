@@ -25,7 +25,7 @@
             <div class="opcion container border" onclick="cargarWidget2()">
                 <img src="https://placehold.co/150x150/aa0000/FFF" class="img-fluid" alt="opcion_2">
                 <p>galeria</p>
-            </div>
+            </div><br>
             <div class="opcion container" onclick="cargarWidget3()">
                 <img src="https://placehold.co/150x150/aacc00/FFF"  class="img-fluid" alt="opcion_3">
                 <p>galeria</p>    

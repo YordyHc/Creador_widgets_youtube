@@ -88,7 +88,7 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
                     <?php foreach ($chunkedVideos as $chunk): ?>
                         <div class="carousel-slide">
                             <?php foreach ($chunk as $video): ?>
-                                <div class="video" 
+                                <div class="video container" 
                                     data-video-id="<?= htmlspecialchars($video['id'], ENT_QUOTES, 'UTF-8') ?>" 
                                     data-video-title="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>" 
                                     data-video-views="<?= htmlspecialchars($video['views'], ENT_QUOTES, 'UTF-8') ?>"
@@ -99,7 +99,7 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
                                         <span class="video-duration"><?=$video['duration']?></span>
                                     </div>
                                     <div class="texto">
-                                        <p class="video-title"><strong><?=$video['title']?></strong></p>
+                                        <p class="video-title"><strong><?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8')?></strong></p>
                                         <p class="video-info"><?=$video['publishedAt']?></p><br><br>
                                         <p class="video-info"><?=$video['views']?> vistas • <?=$video['likes']?> likes • <?=$video['comments']?> comentarios</p>
                                     </div>
