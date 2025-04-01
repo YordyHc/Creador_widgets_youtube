@@ -1,7 +1,6 @@
 // Elimina el evento DOMContentLoaded
 // No es necesario usar 'DOMContentLoaded' aquí ya que los eventos deben asignarse después de cargar el contenido dinámico
 
-let currentIndex = 0;
 function widget1() {
   const slides = document.querySelectorAll(".carousel-slide");
   const totalSlides = slides.length;
@@ -109,6 +108,7 @@ function initializeModal() {
 }
 
 function asignarEventosCarousel() {
+  let currentIndex = 0;
   const slides = document.querySelectorAll(".carousel-slide");
   const totalSlides = slides.length;
 
@@ -206,15 +206,15 @@ function generarUUID() {
   });
 }
 
-function retornarScript() {
+function retornarScript(numwid) {
   console.log("Creando widget");
 
   // Generar un UUID aleatorio
   const uuid = generarUUID();
 
   // Crear la cadena de salida con el formato solicitado
-  const widgetHTML = `<script src="url"></script>
-<div class="yordwid-${uuid}"></div>`;
+  const widgetHTML = `<div class="yordwid-${numwid}-${uuid}"></div>
+<script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`;
 
   // Retornar la cadena HTML
   return widgetHTML;

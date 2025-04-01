@@ -261,7 +261,7 @@
 
         function crearWidget(){
             //logica para mpostrar el script
-            console.log(retornarScript());
+            console.log(retornarScript("ywt" + String(widget)));
         }
     </script>
 

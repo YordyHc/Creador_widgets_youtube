@@ -1,73 +1,163 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Buscar todos los elementos con clase 'elfsight-app-'
-  const widgetContainers = document.querySelectorAll('[class^="yordwid-"]');
+  // Buscar el primer elemento con clase que empieza con 'yordwid-ywt'
+  const container = document.querySelector('[class^="yordwid-ywt"]');
 
-  widgetContainers.forEach(function (container) {
-    const widgetId = container.className.match(/yordwid-([a-f0-9\-]+)/)[1];
+  if (container) {
+    const className = container.className;
 
-    // Llamada para obtener los datos del widget (simulada aquí)
-    loadWidgetData(widgetId, container);
-  });
+    // Usamos una expresión regular para extraer tanto la parte estática como la parte dinámica
+    const match = className.match(/(yordwid-ywt\d+)-([a-f0-9\-]+)/);
+
+    if (match) {
+      const prefix = match[1]; // Esto es 'yordwid-ywt2' (o 'yordwid-ywt' + el número)
+      const widgetId = match[2]; // Esto es el valor dinámico que sigue al 'yordwid-ywt2-'
+      // Llamada para obtener los datos del widget (simulada aquí)
+      loadWidgetData(prefix, widgetId);
+    }
+  }
 });
 
 // Simulación de la solicitud para cargar datos del widget
 // Función que simula cargar datos del widget
-function loadWidgetData(widgetId, container) {
+function loadWidgetData(prefijo, widgetId) {
   // Cargar los estilos de Bootstrap si no están presentes
   addBootstrapStyles();
 
-  // Simulando los datos que se obtendrían de una API
-  const pruebadat = {
-    id: widgetId,
-    title: "Hola, prueba",
-    description: "esta es la descripcion perraco",
+  let channelId = "";
+  let username = "AÑADO_ALG0_PORSIACA";
+
+  // Lógica para recuperar id de canal o username (no implementada en este fragmento)
+  // channelId = recuperarIdCanal(); // Ejemplo de cómo podrías obtener el channelId
+
+  const data = {
+    channelId: channelId,
+    username: username,
   };
 
-  // Llamar a la función que maneja la renderización del widget
-  renderWidget(pruebadat, container);
+  // Realizar la solicitud AJAX
+  const xhr = new XMLHttpRequest();
+  xhr.open(
+    "POST",
+    "../creacion_widgets_youtube/app/Modelo/procesar_url.php",
+    true
+  );
+  xhr.setRequestHeader("Content-Type", "application/json");
 
-  fetch(url)
-    .then((response) => response.json())
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      try {
+        // Verificar si la respuesta es JSON válida
+        const response = JSON.parse(xhr.responseText);
+
+        // Comprobar si la respuesta tiene un status de error
+        if (response.status && response.status === "error") {
+          console.error("Error desde el servidor:", response.message);
+        } else {
+          console.log("Respuesta recibida del servidor:", response);
+          // Acceder a los datos correctamente
+          if (prefijo == "yordwid-ywt1") {
+            cargarWidget1(
+              prefijo + "-" + widgetId,
+              response.perfil,
+              response.videos
+            );
+          } else if (prefijo == "yordwid-ywt2") {
+            cargarWidget2(prefijo + "-" + widgetId, response.videos);
+          } else if (prefijo == "yordwid-ywt3") {
+            cargarWidget3(prefijo + "-" + widgetId, response.videos);
+          } else if (prefijo == "yordwid-ywt4") {
+            cargarWidget4(prefijo + "-" + widgetId, response.videos);
+          }
+        }
+      } catch (e) {
+        console.error("Error al parsear la respuesta JSON:", e);
+        console.error("Respuesta del servidor:", xhr.responseText); // Muestra la respuesta completa para depuración
+      }
+    } else {
+      console.error("Error al procesar la solicitud. Estado HTTP:", xhr.status);
+    }
+  };
+
+  // Enviar la solicitud con los datos en formato JSON
+  xhr.send(JSON.stringify(data));
+}
+
+function cargarWidget1(idWidget, perfildt, videosdt) {
+  fetch("../creacion_widgets_youtube/app/Vista/widget_1.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      videos: videosdt, // Enviar videosData
+      datos: perfildt, // Enviar datosData
+    }),
+  })
+    .then((response) => response.text())
     .then((data) => {
-      // Llamar a la función que maneja la renderización del widget
-      renderWidget(data, container);
+      document.querySelector(`.${idWidget}`).innerHTML = data;
+      widget1();
+      initializeModal();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+// Función para renderizar el widget dentro del contenedor
+function cargarWidget2(idWidget, videosdt) {
+  fetch("../creacion_widgets_youtube/app/Vista/widget_2.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ videos: videosdt }), // Envía los datos de videos en el cuerpo de la solicitud
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      // Asegúrate de usar el nombre correcto de la clase
+      document.querySelector(`.${idWidget}`).innerHTML = data;
+      asignarEventosCarousel();
     })
     .catch((error) => {
       console.error("Error al cargar el widget:", error);
     });
 }
 
-// Función para renderizar el widget dentro del contenedor
-function renderWidget(data, container) {
-  // Crear el HTML del widget con los datos recibidos
-  const widgetHTML = `
-      <div class="cont_1 container border">
-          <h3>${data.title}</h3>
-          <p>${data.description}</p>
-          <button class="btn btn-primary" onclick="alert('¡Botón del widget presionado!')">Interactuar</button>
-      </div>
-  `;
-
-  // Insertar el widget HTML en el contenedor
-  container.innerHTML = widgetHTML;
-
-  // Agregar interacciones al widget después de que se haya renderizado
-  addWidgetInteractions();
-}
-
-// Función para agregar interacciones al widget
-function addWidgetInteractions() {
-  // Esperamos que el botón del widget esté presente en el DOM
-  const button = document.querySelector(".cont_1 button");
-
-  // Si el botón existe, agregarle un evento de clic
-  if (button) {
-    button.addEventListener("click", function () {
-      alert("¡El widget ha sido interactuado!");
+function cargarWidget3(idWidget, videosdt) {
+  fetch("../creacion_widgets_youtube/app/Vista/widget_3.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ videos: videosdt }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      document.querySelector(`.${idWidget}`).innerHTML = data;
+      agregarEventos();
+    })
+    .catch((error) => {
+      console.error(error);
     });
-  }
 }
 
+function cargarWidget4(idWidget, videosdt) {
+  fetch("../creacion_widgets_youtube/app/Vista/widget_4.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ videos: videosdt }),
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      document.querySelector(`.${idWidget}`).innerHTML = data;
+      carrusel4();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 // Función para agregar los estilos de Bootstrap al <head> si no están presentes
 function addBootstrapStyles() {
   // Verificar si Bootstrap ya ha sido cargado
@@ -100,5 +190,199 @@ function addBootstrapStyles() {
 
     // Agregar el <script> al final del body (mejor para rendimiento)
     document.body.appendChild(script);
+  }
+}
+
+function widget1() {
+  const slides = document.querySelectorAll(".carousel-slide");
+  const totalSlides = slides.length;
+  const itemsPerPage = 1; // Un slide por página
+  let currentIndex = 0;
+  const paginationContainer = document.querySelector(".pagination");
+
+  // Generar los botones de paginación
+  const totalPages = Math.ceil(totalSlides / itemsPerPage);
+  for (let i = 0; i < totalPages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i + 1;
+    pageButton.classList.add("pagination-btn");
+    pageButton.addEventListener("click", () => goToPage(i));
+    paginationContainer.appendChild(pageButton);
+  }
+
+  // Navegar a una página específica
+  function goToPage(pageIndex) {
+    currentIndex = pageIndex;
+    updateCarousel();
+    updatePagination();
+  }
+
+  // Función para actualizar la vista del carrusel
+  function updateCarousel() {
+    const gallery = document.querySelector(".gallery");
+    const offset = -currentIndex * 100; // Desplazamiento por cada slide
+    gallery.style.transform = `translateX(${offset}%)`;
+  }
+
+  // Actualizar los estilos de los botones de paginación
+  function updatePagination() {
+    const pageButtons = document.querySelectorAll(".pagination-btn");
+    pageButtons.forEach((button, index) => {
+      if (index === currentIndex) {
+        button.classList.add("active"); // Resaltar el botón activo
+      } else {
+        button.classList.remove("active");
+      }
+    });
+  }
+
+  // Funcionalidad para el botón "next" (siguiente)
+  document.querySelector(".gallery-next").addEventListener("click", () => {
+    if (currentIndex < totalSlides - 1) {
+      currentIndex++; // Avanza al siguiente slide
+      updateCarousel();
+      updatePagination();
+    }
+  });
+
+  // Funcionalidad para el botón "prev" (anterior)
+  document.querySelector(".gallery-prev").addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--; // Retrocede al slide anterior
+      updateCarousel();
+      updatePagination();
+    }
+  });
+}
+
+function initializeModal() {
+  var modal = document.getElementById("myModal");
+  var closeBtn = document.getElementsByClassName("close")[0];
+  var videoFrame = document.getElementById("videoFrame");
+
+  // Cerrar el modal
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+    videoFrame.src = ""; // Detener el video
+  };
+
+  // Cerrar el modal si se hace clic fuera del modal
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      videoFrame.src = ""; // Detener el video
+    }
+  };
+
+  // Función para abrir el modal con el video
+  function playvideoFromData(videoElement) {
+    var videoId = videoElement.getAttribute("data-video-id");
+    var videoTitle = videoElement.getAttribute("data-video-title");
+    var videoViews = videoElement.getAttribute("data-video-views");
+
+    modal.style.display = "flex"; // Mostrar el modal
+    videoFrame.src =
+      "https://www.youtube.com/embed/" +
+      videoId +
+      "?si=bAtHCHmwT3C25Gry&autoplay=1&rel=0";
+    document.getElementById("modal_titulo").innerText = videoTitle;
+    document.getElementById("md_views").innerText = videoViews + " vistas";
+  }
+
+  // Asocia la función `playvideoFromData` a cada video cargado en el contenido dinámico
+  var videoElements = document.querySelectorAll(".video");
+  videoElements.forEach(function (videoElement) {
+    // Asociar el evento de clic con la función
+    videoElement.onclick = function () {
+      playvideoFromData(videoElement);
+    };
+  });
+}
+
+function asignarEventosCarousel() {
+  let currentIndex = 0;
+  const slides = document.querySelectorAll(".carousel-slide");
+  const totalSlides = slides.length;
+
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+
+  if (nextBtn && prevBtn) {
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < totalSlides - 1) {
+        currentIndex++; // Solo avanza si no está en el último slide
+        updateCarousel();
+      }
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--; // Solo retrocede si no está en el primer slide
+        updateCarousel();
+      }
+    });
+  }
+
+  function updateCarousel() {
+    const offset = -currentIndex * 100;
+    document.querySelector(
+      ".carousel-wrapper"
+    ).style.transform = `translateX(${offset}%)`;
+  }
+}
+
+function agregarEventos() {
+  let index = 0;
+  const lista = document.getElementById("lista");
+  const groups = document.querySelectorAll(".video-group");
+  const totalGroups = groups.length;
+
+  function updateVisibility() {
+    groups.forEach((group, i) => {
+      group.style.display = i === index ? "block" : "none";
+    });
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", function () {
+    if (index < totalGroups - 1) {
+      index++;
+      updateVisibility();
+    }
+  });
+
+  document.getElementById("prevBtn").addEventListener("click", function () {
+    if (index > 0) {
+      index--;
+      updateVisibility();
+    }
+  });
+
+  updateVisibility(); // Mostrar la primera lista al cargar
+}
+
+function carrusel4() {
+  const slides = document.querySelectorAll(".carousel-slide");
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    if (currentIndex < totalSlides - 1) {
+      currentIndex++; // Solo avanza si no está en el último slide
+      updateCarousel();
+    }
+  });
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--; // Solo retrocede si no está en el primer slide
+      updateCarousel();
+    }
+  });
+
+  function updateCarousel() {
+    const offset = -currentIndex * 100;
+    document.querySelector(
+      ".carousel-wrapper"
+    ).style.transform = `translateX(${offset}%)`;
   }
 }
