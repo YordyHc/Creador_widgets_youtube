@@ -39,7 +39,7 @@ class YouTubeModel {
         // URL de las imágenes y descripciones
         $idvid = "12546398";
         $imageUrl = "https://placehold.co/560x315/ccddee/FFF";
-        $description = "Esta es una descripción de la imagen tengo que agregar demasiado texto para ver que puede llegar a pasar por todo esto.";
+        $description = "Esta es una descripción de la imagen tengo que agregar demasiado texto para ver que puede llegar a pasar por todo esto. tengo que agregar muchisimo mas text crj mrd";
         $duracion = "14:23";
         $titulo = "HOY SE COME, TA QUE ERA EN EL TITULO, MASW WEBON SOY";
         $fecha = "12/02/2022";

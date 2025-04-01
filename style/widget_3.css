@@ -26,16 +26,84 @@
 
 .miniatura {
   width: 30%;
+  position: relative;
+  height: auto;
 }
 
 .miniatura img {
   width: 100%;
   height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .descripcion {
+  text-align: left;
   width: 70%;
   padding-left: 10px;
+}
+.vd_titulo {
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  line-height: 1.2em;
+}
+.vd-dscpn {
+  font-size: 14px;
+  color: black;
+  display: -webkit-box; /* Usar un contenedor flexible */
+  -webkit-box-orient: vertical; /* Dirección del contenido */
+  overflow: hidden; /* Ocultar el contenido que se desborda */
+  text-overflow: ellipsis; /* Mostrar los puntos suspensivos */
+  line-height: 1.2em; /* Controlar la altura de línea */
+  max-height: 2.6em;
+}
+.video-info {
+  font-size: 14px;
+  color: gray;
+}
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(255, 0, 0);
+  border: none;
+  border-radius: 12%;
+  width: 80px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.video-item:hover {
+  button {
+    background-color: rgba(255, 0, 0, 0.719);
+  }
+  .vd_titulo {
+    text-decoration: underline;
+  }
+}
+
+.play-button::before {
+  content: "▶\FE0E";
+  color: white;
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+}
+.video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 4px;
 }
 
 /* Estilos para los botones */

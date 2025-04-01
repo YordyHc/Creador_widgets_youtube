@@ -23,9 +23,16 @@ $videos = $data['videos'];
                 <div class="carousel-slide">
                     <?php foreach ($chunk as $video): ?>
                         <div class="video-item">
-                            <img src="<?=$video['thumbnail']?>" alt="Imagen">
-                            <div class="descripcion">
-                                <p><?=$video['description']?></p>
+                            <div class="miniatura">
+                                <img src="<?=$video['thumbnail']?>" alt="Imagen">
+                                <button class="play-button"></button>
+                                <span class="video-duration"><?=$video['duration']?></span>
+                            </div>
+                            <div class="descripcion border">
+                                <div class="vd_titulo"><strong><?= $video['title']?></strong></div>
+                                <div class="video-info"><?=$video['publishedAt']?></div>
+                                <div class="vd-dscpn"><?=$video['description']?></div>
+                                <div class="video-info"><?=$video['views']?> vistas • <?=$video['likes']?> likes • <?=$video['comments']?> comentarios</div>
                             </div>
                         </div>
                     <?php endforeach; ?>
