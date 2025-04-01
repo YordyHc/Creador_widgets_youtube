@@ -1,5 +1,22 @@
+body {
+  background-color: #f471ae;
+  color: white;
+}
+.todo {
+  width: 98%;
+  display: block;
+}
 .ven_2 {
+  width: 100%;
   display: flex;
+}
+.hdr {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 60px;
+  color: black;
+  background-color: white;
 }
 .opciones {
   display: flex;
@@ -7,6 +24,7 @@
   height: 550px;
   justify-content: center;
   flex-wrap: wrap;
+  border-bottom-left-radius: 4%;
 }
 .head_opcion {
   text-align: center;
@@ -17,20 +35,26 @@
   cursor: pointer;
   text-align: center;
 }
+.elegir {
+  margin-top: auto; /* Empuja el último div hacia abajo */
+  height: 65px; /* Altura fija del último div */
+}
+
 .elegir button {
   width: 100%;
-  height: 80%;
   background-color: #3fab42; /* Fondo verde */
   color: white; /* Texto blanco */
   border-radius: 5px; /* Bordes redondeados */
   padding: 10px 20px;
 }
 .elegir button:hover {
-  background-color: #59a75a;
+  background-color: #59a15b;
   color: white;
 }
 .muestras {
+  background-color: white;
   width: 73%;
   height: 550px;
   overflow-y: scroll;
+  border-bottom-right-radius: 4%;
 }

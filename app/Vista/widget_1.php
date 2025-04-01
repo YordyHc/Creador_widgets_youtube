@@ -66,7 +66,7 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
     <title>widget 1</title>
 </head>
 <body>
-<div class="container-fluid ">
+    <div class="container-fluid ">
         <div class="container-fluid">
             <div class="header-container" >
                 <img src="<?= isset($datos[0]) ? $datos[0]['img_portada'] : (isset($datos['img_portada']) ? $datos['img_portada'] : 'No se encontró la imagen de portada.');?>" class="rounded-top"alt="Banner">

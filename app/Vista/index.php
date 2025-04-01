@@ -7,8 +7,13 @@
     <title>Gallery Youtube</title>
 </head>
 <body><br>
-    <div class="ven_2 container-fluid border">
-        <div class="opciones container border ">
+<center><h1 class="fw-bold">CREA TU PROPIA GALERIA DE YOUTUBE</h1></center><br>
+<center><div class="todo">
+    <div class="hdr">
+        <center><h5>Creando widget</h5></center>
+    </div>
+    <div class="ven_2">
+        <div class="opciones container p-3 mb-2 bg-dark text-white">
             <div class="head_opcion container">
                 <p>Seleccione una platilla</p>
             </div>
@@ -29,13 +34,14 @@
                 <img src="https://placehold.co/150x150/ecac00/000" class="img-fluid" alt="opcion_4">    
                 <p>galeria</p>
             </div>
-            <div class="elegir container border" id="elegir">
-                <button class="btn btn-enbusca "onclick="pasarABuscar()">Continuar con esta plantilla</button>
+            <div class="elegir container" id="elegir">
+                <button id="btn-enbusca" class="btn btn-enbusca "onclick="pasarABuscar()">Continuar con esta plantilla</button>
             </div>
         </div>
-        <div class="muestras container border" id="muestras">
+        <div class="muestras container" id="muestras">
         </div>
     </div>
+</div></center>
     <script>
         var widget = 1;
         // Función que se ejecuta cuando se presiona el botón
@@ -49,8 +55,10 @@
             opciones.forEach(opcion => {
                 opcion.remove();
             });
-            const btnCont = document.querySelector('.btn-enbusca');
-            btnCont.remove();
+            const btnSeleccionar = document.getElementById("btn-enbusca");
+            btnSeleccionar.id = 'btn-selec';
+            btnSeleccionar.innerText = "Generar Widget";
+            btnSeleccionar.onclick = crearWidget;
             // Crear una nueva caja de texto (input) y un label
             const inputContainer = document.getElementById('input-container');
             const elecont = document.getElementById('elegir');
@@ -67,24 +75,21 @@
             newInput.placeholder = 'URL';
             newInput.value = 'https://www.youtube.com/channel/UCdcF7At6z9uYbuPZiIYNkYQ';  // Asignamos un valor predeterminado al input
             
+            // Crear un salto de línea (<br>)
+            const lineBreak = document.createElement('br');
+
+            // Crear el botón
             const nbtn = document.createElement('button');
             nbtn.id = 'btn-probar';
             nbtn.classList.add('btn-probar', 'btn', 'btn-primary');
-            nbtn.textContent = 'Probar';
+            nbtn.textContent = 'Comprobar';
             nbtn.onclick = probarUrlWidget;
 
-            const btnSeleccionar = document.createElement('button');
-            btnSeleccionar.id = 'btn-selec';
-            btnSeleccionar.classList.add('btn-selec', 'btn');
-            btnSeleccionar.textContent = 'Crear Widget';
-            btnSeleccionar.onclick = crearWidget;
-
-
-            // Agregar el label y el input al contenedor de inputs
+            // Agregar el label, el input, el <br>, y el botón al contenedor de inputs
             inputContainer.appendChild(label);
             inputContainer.appendChild(newInput);
+            inputContainer.appendChild(lineBreak);  // Esto agrega el <br> entre el input y el botón
             inputContainer.appendChild(nbtn);
-            elecont.appendChild(btnSeleccionar);
         }
 
         var datosData = <?php echo $datos; ?>;
