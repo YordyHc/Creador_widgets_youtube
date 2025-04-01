@@ -214,8 +214,6 @@ function generarUUID() {
 }
 
 function retornarScript(numwid) {
-  console.log("Creando widget");
-
   // Generar un UUID aleatorio
   const uuid = generarUUID();
 

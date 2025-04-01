@@ -50,6 +50,13 @@
         </div>
     </div>
 </div></center><br>
+<div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h5><strong>WIDGET GENERADO INSERTE EL SCRIPT EN SU PROYECTO</strong></h5><br><br>
+            <pre id="modal-body"></pre>
+        </div>
+    </div>
     <script>
         var widget = 1;
         // Función que se ejecuta cuando se presiona el botón
@@ -294,12 +301,26 @@
             }
         }
 
-        function crearWidget(){
-            //logica para mpostrar el script
-            console.log(retornarScript("ywt" + String(widget)));
+        function crearWidget() {
+            var contenido = retornarScript("ywt" + String(widget));
+            document.getElementById("modal-body").innerText = contenido;
+            document.getElementById("modal").style.display = "flex";
         }
-    </script>
 
+        function cerrarModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById("modal");
+            if (event.target === modal) {
+                cerrarModal();
+            }
+        }// Obtenemos el contenido
+            //const btnSeleccionar = document.getElementById("btn-selec");
+            //btnSeleccionar.innerText = contenido;
+
+    </script>
   <script src="/creacion_widgets_youtube/script/asignarEventos.js"></script>
 </body>
 </html>
