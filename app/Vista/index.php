@@ -88,7 +88,7 @@
             newInput.id = 'userInput';  // Asignamos un id al input
             newInput.classList.add('form-control');
             newInput.placeholder = 'URL';
-            newInput.value = 'https://www.youtube.com/channel/UCdcF7At6z9uYbuPZiIYNkYQ';  // Asignamos un valor predeterminado al input
+            newInput.value = 'https://www.youtube.com/channel/UCsMzBY3X_RS6GhGBiHXW19A';  // Asignamos un valor predeterminado al input
             
             // Crear un salto de línea (<br>)
             const lineBreak = document.createElement('br');
@@ -119,7 +119,6 @@
 
         var datosData = <?php echo $datos; ?>;
         var videosData = <?php echo $videos; ?>;
-        console.log(datosData);
         function cargarWidget1() {
             fetch('app/Vista/widget_1.php',{
                 method: 'POST',
@@ -214,7 +213,6 @@
             });
         }
 
-        // Cargar inicialmente el Documento 2 al cargar la página
         window.onload = cargarWidget1;
         function probarUrlWidget() {
             // Obtener el valor del input
@@ -324,7 +322,8 @@
                 } else if (match[6]) {
                     username = match[6]; // Canal con nombre de usuario (@)
                 }
-                var contenido = retornarScript("ywt" + String(widget), channelId);
+
+                var contenido = retornarScript("ywt" + String(widget), channelId, username);
                 document.getElementById("modal-body").innerText = contenido;
                 document.getElementById("modal").style.display = "flex";
             }else {

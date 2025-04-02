@@ -77,8 +77,11 @@ if (isset($data['url'])) {
 }
 
 // Si se proporcionó channelId o username, crear el modelo de YouTube
-if ($channelId) {
+if ($channelId != "") {
     $youtubeModel = new YouTubeModel($channelId); // Asumiendo que el modelo puede manejar un username.
+}elseif($username != ""){
+    $youtubeModel = new YouTubeModel($username);
+    $channelId = $youtubeModel->obtenerIdCanalYoutube();
 } else {
     echo json_encode([
         'status' => 'error',

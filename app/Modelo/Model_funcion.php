@@ -13,46 +13,45 @@ class YouTubeModel {
         $this->channelId =$id_canal;
     }
 
-    public function get_dat_videos(){
-        /*$idvid = "Vz6cTz3NiBw";
-        $imageUrl = "https://placehold.co/560x315/ccddee/FFF";
-        $description = "Esta es una descripción de la imagen tengo que agregar demasiado texto para ver que puede llegar a pasar por todo esto. tengo que agregar muchisimo mas text crj mrd";
-        $duracion = "14:23";
-        $titulo = "HOY SE COME, TA QUE ERA EN EL TITULO, MASW WEBON SOY";
-        $fecha = "12/02/2022";
-        $vistas = 18888;
-        $likes = 12;
-        $coment = 25;
-        $idvid2 = "MitSZ9ZeZxA";
-        $imageUrl2 = "https://placehold.co/560x315/00cc00/FFF";
-        $description2 = "Segunda descripción de la imagen.";
-        $duracion2 = "10:57";
-        $titulo2 = "NUNCA MAAASS, tiene que ser un titulo muy grande para probar que pdos";
-        $fecha2 = "08/02/2021";
-        $vistas2 = 18;
-        $likes2 = 1;
-        $coment2 = 10;
-        $idvid3 = "xYoYYNDheVo";
-        $imageUrl3 = "https://placehold.co/560x315/bbcc00/FFF";
-        $description3 = "Tercera descripción de la imagen.";
-        $duracion3 = "07:15";
-        $titulo3 = "UN DIA MAS";
-        $fecha3 = "22/05/2018";
-        $vistas3 = 1758;
-        $likes3 = 25;
-        $coment3 = 27;
+    
+    function obtenerIdCanalYoutube() {
+        // Crear la URL de la solicitud a la API de YouTube
+        $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" . urlencode($this->channelId) . "&type=channel&key=" . $this->apiKey;
 
-        $responses = [];
-        // Convertir a JSON para manejar con JS
-        for ($i = 0; $i < 5; $i++) {
-            $responses[] = ["thumbnail" => $imageUrl, "description" => $description, "id" => $idvid, "duration" => $duracion, "title" => $titulo, "publishedAt" => $fecha, "views" => $vistas, "likes" => $likes, "comments" => $coment];
-            $responses[] = ["thumbnail" => $imageUrl2, "description" => $description2, "id" => $idvid2, "duration" => $duracion2, "title" => $titulo2, "publishedAt" => $fecha2, "views" => $vistas2, "likes" => $likes2, "comments" => $coment2];
-            $responses[] = ["thumbnail" => $imageUrl3, "description" => $description3, "id" => $idvid3, "duration" => $duracion3, "title" => $titulo3, "publishedAt" => $fecha3, "views" => $vistas3, "likes" => $likes3, "comments" => $coment3];
-            $responses[] = ["thumbnail" => $imageUrl2, "description" => $description2, "id" => $idvid2, "duration" => $duracion2, "title" => $titulo2, "publishedAt" => $fecha2, "views" => $vistas2, "likes" => $likes2, "comments" => $coment2];
-            $responses[] = ["thumbnail" => $imageUrl, "description" => $description, "id" => $idvid, "duration" => $duracion, "title" => $titulo, "publishedAt" => $fecha, "views" => $vistas, "likes" => $likes, "comments" => $coment];
+        // Iniciar la sesión cURL
+        $ch = curl_init();
+
+        // Configurar opciones de cURL
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Ejecutar la solicitud y obtener la respuesta
+        $response = curl_exec($ch);
+
+        // Comprobar si hubo errores en la solicitud
+        if (curl_errno($ch)) {
+            echo 'Error en la solicitud cURL: ' . curl_error($ch);
+            curl_close($ch);
+            return null;
         }
 
-        return json_encode($responses);*/
+        // Cerrar la sesión cURL
+        curl_close($ch);
+
+        // Decodificar la respuesta JSON
+        $data = json_decode($response, true);
+
+        // Verificar si se obtuvo resultados
+        if (isset($data['items'][0]['id']['channelId'])) {
+            // Retornar el ID del canal
+            $this -> channelId = $data['items'][0]['id']['channelId'];
+            return $data['items'][0]['id']['channelId'];
+        } else {
+            // Si no se encontró el canal, retornar null
+            return null;
+        }
+    }
+    public function get_dat_videos(){
         $cantidadResultados = 4; // Número de videos a obtener
         $urlVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId={$this->channelId}&maxResults={$cantidadResultados}&order=date&type=video&key={$this->apiKey}";
         $responseVideos = file_get_contents($urlVideos);
@@ -123,17 +122,6 @@ class YouTubeModel {
         }
 
         return json_encode($datosper);
-        /*$datosper = [];
-        $idcan = "125483325";
-        $nombre = "YORDICIIITO";
-        $img_per = "https://placehold.co/560x560/bb05aa/FFF";
-        $subs = 152;
-        $canvid = 12;
-        $canvis = 10002;
-        $portada ="https://placehold.co/1060x560/5522aa/FFF";
-        $datosper[] = ["id_canal" => $idcan, "nom_can" => $nombre, "img_perfil" => $img_per, "suscriptores" => $subs, "cant_videos" => $canvid, "cant_vistas" => $canvis, "img_portada" => $portada];
-
-        return json_encode($datosper);*/
     }
     private function formatYouTubeDuration($duration) {
         preg_match('/PT(\d+H)?(\d+M)?(\d+S)?/', $duration, $matches);

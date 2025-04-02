@@ -213,28 +213,28 @@ function generarUUID() {
   });
 }
 
-function retornarScript(numwid, iddelcanal) {
+function retornarScript(numwid, iddelcanal, name) {
   // Generar un UUID aleatorio
-  const uuid = generarUUID();
+  const coddiv = generarUUID();
 
   // Crear la cadena de salida con el formato solicitado
-  const widgetHTML = `<div class="yordwid-${numwid}-${uuid}"></div>
+  const widgetHTML = `<div class="yordwid-${numwid}-${coddiv}"></div>
 <script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`;
-  insertarWidgetEnBaseDeDatos(uuid, iddelcanal);
+  insertarWidgetEnBaseDeDatos(coddiv, iddelcanal, name);
   // Retornar la cadena HTML
   return widgetHTML;
   //console.log(widgetHTML);
 }
-function insertarWidgetEnBaseDeDatos(codigo_wid, uuid) {
+function insertarWidgetEnBaseDeDatos(codigo_wid, uuid, name) {
   const id_canal = uuid; // El uuid es el canal
-
+  const usernm = name;
   // Realizar la solicitud AJAX al servidor PHP
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "/creacion_widgets_youtube/app/Modelo/procesar_2.php", true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
   // Enviar los datos
-  xhr.send(`codigo_wid=${codigo_wid}&id_canal=${id_canal}`);
+  xhr.send(`codigo_wid=${codigo_wid}&id_canal=${id_canal}&nom_user=${usernm}`);
 
   // Manejar la respuesta
   xhr.onload = function () {
