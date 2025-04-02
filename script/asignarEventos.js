@@ -213,15 +213,40 @@ function generarUUID() {
   });
 }
 
-function retornarScript(numwid) {
+function retornarScript(numwid, iddelcanal) {
   // Generar un UUID aleatorio
   const uuid = generarUUID();
 
   // Crear la cadena de salida con el formato solicitado
   const widgetHTML = `<div class="yordwid-${numwid}-${uuid}"></div>
 <script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`;
-
+  insertarWidgetEnBaseDeDatos(uuid, iddelcanal);
   // Retornar la cadena HTML
   return widgetHTML;
   //console.log(widgetHTML);
+}
+function insertarWidgetEnBaseDeDatos(codigo_wid, uuid) {
+  const id_canal = uuid; // El uuid es el canal
+
+  // Realizar la solicitud AJAX al servidor PHP
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/creacion_widgets_youtube/app/Modelo/procesar_2.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  // Enviar los datos
+  xhr.send(`codigo_wid=${codigo_wid}&id_canal=${id_canal}`);
+
+  // Manejar la respuesta
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      const response = JSON.parse(xhr.responseText); // Parsear la respuesta JSON
+      if (response.status === "success") {
+        console.log(response.message); // Mensaje de éxito
+      } else {
+        console.error(response.message); // Mensaje de error
+      }
+    } else {
+      console.error("Error al realizar la solicitud");
+    }
+  };
 }

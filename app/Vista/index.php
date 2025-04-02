@@ -119,7 +119,7 @@
 
         var datosData = <?php echo $datos; ?>;
         var videosData = <?php echo $videos; ?>;
-
+        console.log(datosData);
         function cargarWidget1() {
             fetch('app/Vista/widget_1.php',{
                 method: 'POST',
@@ -221,9 +221,6 @@
             const input = document.getElementById('userInput');
             const url = input.value;
 
-            // Mostrar el valor ingresado en la consola
-            console.log('Valor ingresado en el input:', url);
-
             // Validar si la URL es un canal de YouTube
             const youtubePattern = /^https?:\/\/(www\.)?youtube\.com\/(channel\/([a-zA-Z0-9_-]+)|c\/([a-zA-Z0-9_-]+)|user\/([a-zA-Z0-9_-]+)|@([a-zA-Z0-9_]+))$/;
             const match = url.match(youtubePattern);
@@ -248,6 +245,7 @@
 
                 // Preparar los datos para la solicitud AJAX
                 const data = {
+                    urlcan: url,
                     channelId: channelId,
                     username: username
                 };
@@ -302,9 +300,36 @@
         }
 
         function crearWidget() {
-            var contenido = retornarScript("ywt" + String(widget));
-            document.getElementById("modal-body").innerText = contenido;
-            document.getElementById("modal").style.display = "flex";
+            const input = document.getElementById('userInput');
+            const url = input.value;
+
+            // Validar si la URL es un canal de YouTube
+            const youtubePattern = /^https?:\/\/(www\.)?youtube\.com\/(channel\/([a-zA-Z0-9_-]+)|c\/([a-zA-Z0-9_-]+)|user\/([a-zA-Z0-9_-]+)|@([a-zA-Z0-9_]+))$/;
+            const match = url.match(youtubePattern);
+            
+            if (url && match) {
+                console.log('La URL es un canal de YouTube válido:', url);
+
+                // Extraer el ID del canal o el nombre de usuario dependiendo de la URL
+                let channelId = '';
+                let username = '';
+
+                // Revisar las posibles posiciones de los valores en la expresión regular
+                if (match[3]) {
+                    channelId = match[3]; // Canal con ID (channel/)
+                } else if (match[4]) {
+                    channelId = match[4]; // Canal con ID (c/)
+                } else if (match[5]) {
+                    username = match[5]; // Canal con nombre de usuario (user/)
+                } else if (match[6]) {
+                    username = match[6]; // Canal con nombre de usuario (@)
+                }
+                var contenido = retornarScript("ywt" + String(widget), channelId);
+                document.getElementById("modal-body").innerText = contenido;
+                document.getElementById("modal").style.display = "flex";
+            }else {
+                console.log('La URL no es un canal de YouTube válido.');
+            }
         }
 
         function cerrarModal() {
