@@ -15,7 +15,7 @@
     <div class="ven_2">
         <div class="opciones container p-3 mb-2 bg-dark text-white">
             <div class="head_opcion container">
-                <p>Seleccione una platilla</p>
+                <p>Seleccione una plantilla</p>
             </div>
             <div class="input-container container" id="input-container"></div>
             <div class="opcion container" onclick="cargarWidget1()">

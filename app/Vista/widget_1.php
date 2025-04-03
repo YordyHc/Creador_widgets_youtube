@@ -27,9 +27,11 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
                 <p class="stats"><?= isset($datos[0]) ? $datos[0]['suscriptores'] : (isset($datos['suscriptores']) ? $datos['suscriptores'] : 'No se encontro subs');?> Suscriptores • 
                 <?=isset($datos[0]) ? $datos[0]['cant_videos'] : (isset($datos['cant_videos']) ? $datos['cant_videos'] : 'No se encontro videos');?> Videos • 
                 <?=isset($datos[0]) ? $datos[0]['cant_vistas'] : (isset($datos['cant_vistas']) ? $datos['cant_vistas'] : 'No se encontro vistas');?> Vistas</p>
-                <button class="subscribe-btn btn">
-                    <i class="fa-brands fa-youtube"></i> Youtube 32M
-                </button>
+                <a href="https://www.youtube.com/channel/<?= isset($datos[0]) ? $datos[0]['id_canal'] : (isset($datos['id_canal']) ? $datos['id_canal'] : 'No se encontró id canal');?>" target="_blank">
+                    <button class="subscribe-btn btn">
+                        <i class="fa-brands fa-youtube"></i> Youtube 32M
+                    </button>
+                </a>
                 <br><br><br>
             </div><br>
             <center><div class="gallery-container">
