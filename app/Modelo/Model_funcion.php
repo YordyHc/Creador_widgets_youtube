@@ -52,7 +52,7 @@ class YouTubeModel {
         }
     }
     public function get_dat_videos(){
-        $cantidadResultados = 4; // Número de videos a obtener
+        $cantidadResultados = 32; // Número de videos a obtener
         $urlVideos = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId={$this->channelId}&maxResults={$cantidadResultados}&order=date&type=video&key={$this->apiKey}";
         $responseVideos = file_get_contents($urlVideos);
         $dataVideos = json_decode($responseVideos, true);

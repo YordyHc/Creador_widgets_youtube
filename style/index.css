@@ -104,3 +104,10 @@ body {
   cursor: pointer;
   font-size: 20px;
 }
+
+.confirmationMessage {
+  display: none;
+  color: green;
+  margin-bottom: 10px;
+  font-size: 14px;
+}

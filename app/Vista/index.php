@@ -53,8 +53,10 @@
 <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarModal()">&times;</span>
-            <h5><strong>WIDGET GENERADO INSERTE EL SCRIPT EN SU PROYECTO</strong></h5><br><br>
-            <pre id="modal-body"></pre>
+            <h5><strong>WIDGET GENERADO<br>INSERTE EL SCRIPT EN SU PROYECTO</strong></h5><br>
+            <pre id="modal-body"></pre><br>
+            <div class="confirmationMessage" id="confirmationMessage">Copiado</div>
+            <button class="btn btn-success btn-sm"id="copyButton" onclick="copiarTexto()">Copiar script</button>
         </div>
     </div>
     <script>
@@ -326,21 +328,44 @@
                 var contenido = retornarScript("ywt" + String(widget), channelId, username);
                 document.getElementById("modal-body").innerText = contenido;
                 document.getElementById("modal").style.display = "flex";
+                window.onclick = function(event) {
+                var modal = document.getElementById("modal");
+                if (event.target === modal) {
+                cerrarModal();
+            }
+        }
             }else {
                 console.log('La URL no es un canal de YouTube válido.');
             }
         }
+        function copiarTexto() {
+            var texto = document.getElementById("modal-body").textContent || document.getElementById("modal-body").innerText;
+            
+            // Crear un área de texto temporal para poder copiar
+            var areaTexto = document.createElement("textarea");
+            areaTexto.value = texto;
+            document.body.appendChild(areaTexto);
+            
+            // Seleccionar y copiar el texto
+            areaTexto.select();
+            document.execCommand("copy");
+            
+            // Eliminar el área de texto temporal
+            document.body.removeChild(areaTexto);
 
+            // Mostrar mensaje de confirmación
+            var confirmationMessage = document.getElementById("confirmationMessage");
+            confirmationMessage.style.display = "block";
+
+            // Ocultar el mensaje después de 2 segundos
+            setTimeout(function() {
+                confirmationMessage.style.display = "none";
+            }, 2000);
+        }
         function cerrarModal() {
             document.getElementById("modal").style.display = "none";
         }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById("modal");
-            if (event.target === modal) {
-                cerrarModal();
-            }
-        }// Obtenemos el contenido
+        // Obtenemos el contenido
             //const btnSeleccionar = document.getElementById("btn-selec");
             //btnSeleccionar.innerText = contenido;
 

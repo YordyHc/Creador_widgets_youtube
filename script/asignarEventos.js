@@ -218,8 +218,7 @@ function retornarScript(numwid, iddelcanal, name) {
   const coddiv = generarUUID();
 
   // Crear la cadena de salida con el formato solicitado
-  const widgetHTML = `<div class="yordwid-${numwid}-${coddiv}"></div>
-<script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`;
+  const widgetHTML = `<div class="yordwid-${numwid}-${coddiv}"></div>\n<script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`;
   insertarWidgetEnBaseDeDatos(coddiv, iddelcanal, name);
   // Retornar la cadena HTML
   return widgetHTML;
