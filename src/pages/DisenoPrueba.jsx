@@ -28,6 +28,27 @@ export default function DisenoPrueba() {
       <div>
         <button type="button">Crear widget</button>
       </div>
+      <div className="modal">
+        <div className="modal-content">
+          <span className="close" onclick="cerrarModal()">
+            &times;
+          </span>
+          <h5>
+            <strong>WIDGET GENERADO INSERTE EL SCRIPT EN SU PROYECTO</strong>
+          </h5>
+          <pre id="modal-body">aqui va el script del en un modal</pre>
+          <div className="confirmationMessage" id="confirmationMessage">
+            Copiado
+          </div>
+          <button
+            className="btn btn-success btn-sm"
+            id="copyButton"
+            onclick="copiarTexto()"
+          >
+            Copiar script
+          </button>
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,0 +1,43 @@
+:root {
+  /* Fondos principales */
+  --verde-gris: #94d9be;
+  --verde-claro: #b0eac5;
+  --verde-menta: #9be1c6;
+  --azul-claro: #9adaff;
+  --azul-gris: #7aa6be;
+}
+
+nav {
+  background: var(--verde-gris);
+  color: #000;
+  padding: 15px;
+}
+
+footer {
+  background: var(--verde-gris);
+  color: #000;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+body {
+  background: #ffffff;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(154, 218, 255, 1) 50%,
+    rgba(137, 255, 181, 1) 100%
+  );
+}
+.redes {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: #94d9be;
+}
+.red-social {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+}

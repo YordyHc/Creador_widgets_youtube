@@ -2,27 +2,31 @@ import DisenoCard from "../../components/Home/DisenoCard";
 
 export default function Home() {
   return (
-    <section style={{ padding: "20px" }}>
-      <div>
-        <div>
-          <button type="button">Youtube</button>
+    <section>
+      <div className="container">
+        <div className="redes">
+          <div className="red-social">
+            <button className="btn" type="button">
+              Youtube
+            </button>
+          </div>
         </div>
         <div>
           <DisenoCard
             altimg="YouImg01"
-            imagen="https://placehold.co/100x100/aabbee/aaFFFF/png"
+            imagen="imgs/MiniDesingYou/img_widget_1.png"
           />
           <DisenoCard
             altimg="YouImg02"
-            imagen="https://placehold.co/100x100/003456/aaFFFF/png"
+            imagen="imgs/MiniDesingYou/img_widget_2.png"
           />
           <DisenoCard
             altimg="YouImg03"
-            imagen="https://placehold.co/100x100/112233/aaFFFF/png"
+            imagen="imgs/MiniDesingYou/img_widget_3.png"
           />
           <DisenoCard
             altimg="YouImg04"
-            imagen="https://placehold.co/100x100/665655/aaFFFF/png"
+            imagen="imgs/MiniDesingYou/img_widget_4.png"
           />
         </div>
         <div>
