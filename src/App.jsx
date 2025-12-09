@@ -5,11 +5,13 @@ import Footer from "./layout/footer/Footer";
 function App() {
   return (
     <>
-      <Navbar />
-      <main style={{ marginTop: "60px" }}>
-        <Outlet /> {/* Aquí se cargan las páginas */}
-      </main>
-      <Footer />
+      <div className="page">
+        <Navbar />
+        <main style={{ marginTop: "60px" }}>
+          <Outlet /> {/* Aquí se cargan las páginas */}
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

@@ -1,12 +1,12 @@
-import React from "react"; // (Opcional en versiones nuevas de React)
+import React from "react";
 
-function DisenoCard(props) {
-  // 1. Lógica del componente (variables, funciones, hooks)
-  const { altimg, imagen, descripcion } = props;
-
-  // 2. Retorno del JSX (lo que se renderiza en pantalla)
+function DisenoCard({ altimg, imagen, isActive, onClick }) {
   return (
-    <div>
+    <div
+      className={`cont-img ${isActive ? "active" : ""}`} // Clase activa
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+    >
       <img src={imagen} alt={altimg} />
     </div>
   );

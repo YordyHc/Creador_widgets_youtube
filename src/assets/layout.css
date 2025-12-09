@@ -1,0 +1,23 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  color: #000;
+  background: transparent; /* inicio */
+  transition: background 0.3s ease;
+  z-index: 1000;
+}
+
+/* Cuando hace scroll */
+header.scrolled {
+  background: var(--verde-gris);
+}
+
+footer {
+  background: var(--verde-gris);
+  color: #000;
+  padding: 20px;
+  text-align: center;
+}

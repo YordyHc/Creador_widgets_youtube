@@ -4,11 +4,12 @@ export default function DisenoPrueba() {
   const [canal, setCanal] = useState("");
 
   return (
-    <section style={{ padding: "20px" }}>
-      <div>
+    <section className="cont-prueba container">
+      <div className="canal-input">
         <div>
           <label htmlFor="canal">Ingrese Link del canal:</label>
           <input
+            className=""
             id="canal"
             type="text"
             value={canal}
@@ -16,17 +17,21 @@ export default function DisenoPrueba() {
           />
         </div>
         <div>
-          <button type="button">Comprobar</button>
+          <button className="boton btn" type="button">
+            Comprobar
+          </button>
         </div>
       </div>
-      <div>
+      <div className="muestra">
         <img
           src="https://placehold.co/1000x400/bbccdd/112233?text=ACA+VA+EL+DISEÑO"
           alt="prueba"
         />
       </div>
       <div>
-        <button type="button">Crear widget</button>
+        <button className="boton btn" type="button">
+          Crear widget
+        </button>
       </div>
       <div className="modal">
         <div className="modal-content">
