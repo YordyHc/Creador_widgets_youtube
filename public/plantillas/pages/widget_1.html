@@ -1,11 +1,3 @@
-<?php
-$data = json_decode(file_get_contents('php://input'), true);
-
-// Acceder a los datos enviados
-$videos = $data['videos'];  // Los datos de los videos
-$datos = $data['datos'];  
-$chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,107 +7,59 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="/creacion_widgets_youtube/style/widget_1.css"
-    />
+    <link rel="stylesheet" href="../assets/style/widget_1.css" />
     <title>widget 1</title>
   </head>
+
   <body>
     <div class="container-fluid">
       <div class="container-fluid">
+        <!-- Imagen de portada -->
         <div class="header-container">
-          <img
-            src="<?= isset($datos[0]) ? $datos[0]['img_portada'] : (isset($datos['img_portada']) ? $datos['img_portada'] : 'No se encontró la imagen de portada.');?>"
-            class="rounded-top"
-            alt="Banner"
-          />
+          <img id="img_portada" class="rounded-top" alt="Banner" />
         </div>
         <br /><br />
+
+        <!-- Perfil -->
         <div class="profile">
           <br /><br /><br /><br /><br />
-          <img
-            src="<?=isset($datos[0]) ? $datos[0]['img_perfil'] : (isset($datos['img_perfil']) ? $datos['img_perfil'] : 'No se encontró la imagen de perfil.');?>"
-            alt="Perfil"
-          />
+          <img id="img_perfil" alt="Perfil" />
+
           <h2>
-            <a
-              href="https://www.youtube.com/channel/<?=isset($datos[0]) ? $datos[0]['id_canal'] : (isset($datos['id_canal']) ? $datos['id_canal'] : 'No se encontró id');?>"
-              ><?= isset($datos[0]) ? $datos[0]['nom_can'] : (isset($datos['nom_can']) ? $datos['nom_can'] : 'No se encontró nombre'); ?></a
-            >
+            <a id="canal_url" href="#" target="_blank"></a>
           </h2>
+
           <br /><br />
-          <p class="stats">
-            <?= isset($datos[0]) ? $datos[0]['suscriptores'] : (isset($datos['suscriptores']) ? $datos['suscriptores'] : 'No se encontro subs');?>
-            Suscriptores •
-            <?=isset($datos[0]) ? $datos[0]['cant_videos'] : (isset($datos['cant_videos']) ? $datos['cant_videos'] : 'No se encontro videos');?>
-            Videos •
-            <?=isset($datos[0]) ? $datos[0]['cant_vistas'] : (isset($datos['cant_vistas']) ? $datos['cant_vistas'] : 'No se encontro vistas');?>
-            Vistas
-          </p>
-          <a
-            href="https://www.youtube.com/channel/<?= isset($datos[0]) ? $datos[0]['id_canal'] : (isset($datos['id_canal']) ? $datos['id_canal'] : 'No se encontró id canal');?>"
-            target="_blank"
-          >
+
+          <p class="stats" id="stats"></p>
+
+          <a id="yt_button_url" href="#" target="_blank">
             <button class="subscribe-btn btn">
-              <i class="fa-brands fa-youtube"></i> Youtube 32M
+              <i class="fa-brands fa-youtube"></i> Youtube
             </button>
           </a>
           <br /><br /><br />
         </div>
-        <br />
+
+        <!-- GALERÍA DE VIDEOS -->
         <center>
           <div class="gallery-container">
-            <button class="gallery-nav-btn btn gallery-prev">❮</button
-            ><!--onclick="prevPage()"-->
-            <div class="gallery">
-              <?php foreach ($chunkedVideos as $chunk): ?>
-              <div class="carousel-slide">
-                <?php foreach ($chunk as $video): ?>
-                <div
-                  class="video container"
-                  data-video-id="<?= htmlspecialchars($video['id'], ENT_QUOTES, 'UTF-8') ?>"
-                  data-video-title="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>"
-                  data-video-views="<?= htmlspecialchars($video['views'], ENT_QUOTES, 'UTF-8') ?>"
-                  onclick="playvideoFromData(this)"
-                >
-                  <div class="miniatura">
-                    <img src="<?=$video["thumbnail"]?>" alt="Miniatura 3"
-                    class="thumbnail">
-                    <button class="play-button"></button>
-                    <span class="video-duration"><?=$video['duration']?></span>
-                  </div>
-                  <div class="texto">
-                    <p class="video-title">
-                      <strong
-                        ><?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8')?></strong
-                      >
-                    </p>
-                    <p class="video-info"><?=$video['publishedAt']?></p>
-                    <br /><br />
-                    <p class="video-info">
-                      <?=$video['views']?>
-                      vistas •
-                      <?=$video['likes']?>
-                      likes •
-                      <?=$video['comments']?>
-                      comentarios
-                    </p>
-                  </div>
-                </div>
-                <?php endforeach; ?>
-              </div>
-              <?php endforeach; ?>
-            </div>
-            <button class="gallery-nav-btn btn gallery-next">❯</button
-            ><!--onclick="nextPage()"-->
+            <button class="gallery-nav-btn btn gallery-prev">❮</button>
+
+            <div class="gallery" id="gallery"></div>
+
+            <button class="gallery-nav-btn btn gallery-next">❯</button>
           </div>
         </center>
+
         <br /><br /><br />
+
         <div class="controls">
           <div class="pagination"></div>
         </div>
       </div>
+
+      <!-- MODAL -->
       <br /><br />
       <div id="myModal" class="modal">
         <div class="modal-content">
@@ -130,7 +74,8 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen
-            ></iframe>
+            >
+            </iframe>
           </div>
 
           <div class="modal-extra-content">
@@ -140,6 +85,99 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
         </div>
       </div>
     </div>
+
+    <!-- =============================== -->
+    <!-- RECEPCIÓN DE DATOS DESDE REACT -->
+    <!-- =============================== -->
+    <script>
+      window.addEventListener("message", (event) => {
+        if (!event.data) return;
+
+        const { datos, videos } = event.data;
+
+        if (!datos || !videos) return;
+
+        // Datos del canal (objeto plano)
+        document.getElementById("img_portada").src = datos.bannerImage;
+        document.getElementById("img_perfil").src = datos.logoUrl;
+
+        document.getElementById("canal_url").href =
+          "https://www.youtube.com/channel/" + datos.idcanal;
+        document.getElementById("canal_url").textContent = datos.title;
+
+        document.getElementById(
+          "stats"
+        ).textContent = `${datos.subscriberCount} Suscriptores • ${datos.videoCount} Videos • ${datos.viewCount} Vistas`;
+
+        document.getElementById("yt_button_url").href =
+          "https://www.youtube.com/channel/" + datos.idcanal;
+
+        // Construir galería con los videos reales
+        buildGallery(videos);
+      });
+    </script>
+
+    <!-- =============================== -->
+    <!-- CREAR GALERÍA DINÁMICAMENTE -->
+    <!-- =============================== -->
+    <script>
+      function buildGallery(videos) {
+        const gallery = document.getElementById("gallery");
+        gallery.innerHTML = "";
+
+        const chunked = chunkArray(videos, 3);
+
+        chunked.forEach((chunk) => {
+          const slide = document.createElement("div");
+          slide.classList.add("carousel-slide");
+
+          chunk.forEach((video) => {
+            const div = document.createElement("div");
+            div.classList.add("video", "container");
+
+            div.dataset.videoId = video.id;
+            div.dataset.videoTitle = video.title;
+            div.dataset.videoViews = video.viewCount;
+
+            div.onclick = () => playvideoFromData(div);
+
+            div.innerHTML = `
+                <div class="miniatura">
+                    <img src="${video.thumbnail}" class="thumbnail" />
+                    <button class="play-button"></button>
+                    <span class="video-duration">${video.duration}</span>
+                </div>
+                <div class="texto">
+                    <p class="video-title"><strong>${video.title}</strong></p>
+                    <p class="video-info">${video.publishedAt}</p><br><br>
+                    <p class="video-info">${video.viewCount} vistas • ${video.likeCount} likes • ${video.commentCount} comentarios</p>
+                </div>
+            `;
+
+            slide.appendChild(div);
+          });
+
+          gallery.appendChild(slide);
+        });
+
+        initCarousel();
+      }
+    </script>
+
+    <script>
+      // Utilidad para dividir videos en grupos de 3
+      function chunkArray(arr, size) {
+        const temp = [];
+        for (let i = 0; i < arr.length; i += size) {
+          temp.push(arr.slice(i, i + size));
+        }
+        return temp;
+      }
+    </script>
+
+    <!-- =============================== -->
+    <!-- CARRUSEL ORIGINAL (NO TOCADO) -->
+    <!-- =============================== -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const slides = document.querySelectorAll(".carousel-slide");
@@ -210,7 +248,18 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
       });
     </script>
 
+    <!-- =============================== -->
+    <!-- MODAL VIDEO ORIGINAL -->
+    <!-- =============================== -->
     <script>
+      function playvideoFromData(el) {
+        playvideo(
+          el.dataset.videoId,
+          el.dataset.videoTitle,
+          el.dataset.videoViews
+        );
+      }
+
       var modal = document.getElementById("myModal");
       var closeBtn = document.getElementsByClassName("close")[0];
       var videoFrame = document.getElementById("videoFrame");
@@ -218,9 +267,8 @@ $chunkedVideos = array_chunk($videos, 3); // Divide los videos en grupos de 3
       function playvideo(id_video, titulo, vista) {
         modal.style.display = "flex";
         videoFrame.src =
-          "https://www.youtube.com/embed/" +
-          id_video +
-          "?si=bAtHCHmwT3C25Gry&autoplay=1&rel=0";
+          "https://www.youtube.com/embed/" + id_video + "?autoplay=1&rel=0";
+
         document.getElementById("modal_titulo").innerText = titulo;
         document.getElementById("md_views").innerText = vista + " vistas";
       }
