@@ -115,6 +115,7 @@ body {
   background-color: #0000004d;
   justify-items: center;
   text-align: center;
+  border-radius: 40px;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -123,6 +124,22 @@ body {
   display: flex;
   gap: 40px;
   background-color: var(--verde-gris);
-  justify-content: space-around;
-  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 50px 10px 50px;
+  border-radius: 50px;
+}
+.lb-in {
+  display: flex;
+  align-items: center;
+}
+.caja {
+  width: 600px;
+  height: 34px;
+  border: none;
+  border-radius: 20px;
+  margin: 0 0 0 10px;
+}
+.crear {
+  padding: 15px;
 }

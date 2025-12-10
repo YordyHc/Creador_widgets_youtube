@@ -4,12 +4,12 @@ export default function DisenoPrueba() {
   const [canal, setCanal] = useState("");
 
   return (
-    <section className="cont-prueba container">
-      <div className="canal-input">
-        <div>
+    <section className="cont-prueba mt-5 mb-5 container">
+      <div className="canal-input mb-4">
+        <div className="lb-in">
           <label htmlFor="canal">Ingrese Link del canal:</label>
           <input
-            className=""
+            className="caja"
             id="canal"
             type="text"
             value={canal}
@@ -28,7 +28,7 @@ export default function DisenoPrueba() {
           alt="prueba"
         />
       </div>
-      <div>
+      <div className="crear">
         <button className="boton btn" type="button">
           Crear widget
         </button>
