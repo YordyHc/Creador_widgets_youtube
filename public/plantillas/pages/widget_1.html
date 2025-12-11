@@ -11,81 +11,141 @@
     <title>widget 1</title>
   </head>
 
-  <body>
-    <div class="container-fluid">
-      <div class="container-fluid">
-        <!-- Imagen de portada -->
-        <div class="header-container">
-          <img id="img_portada" class="rounded-top" alt="Banner" />
-        </div>
-        <br /><br />
+  <body class="yorwids">
+    <div class="channel-header">
+      <img id="img_portada" class="channel-banner" alt="Banner" />
 
-        <!-- Perfil -->
-        <div class="profile">
-          <br /><br /><br /><br /><br />
-          <img id="img_perfil" alt="Perfil" />
-
+      <div class="profile">
+        <br /><br /><br /><br /><br /><br />
+        <a
+          href="https://www.youtube.com/channel/UC5ZiUaIJ2b5dYBYGf5iEUrA"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img id="img_perfil" class="logo" alt="Logo del canal" />
+        </a>
+        <div class="pf-data">
+          <br />
           <h2>
-            <a id="canal_url" href="#" target="_blank"></a>
+            <a
+              id="canal_url"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            ></a>
           </h2>
-
-          <br /><br />
-
-          <p class="stats" id="stats"></p>
-
-          <a id="yt_button_url" href="#" target="_blank">
-            <button class="subscribe-btn btn">
-              <i class="fa-brands fa-youtube"></i> Youtube
-            </button>
-          </a>
-          <br /><br /><br />
+          <p id="stats" class="stats"></p>
         </div>
-
-        <!-- GALERÍA DE VIDEOS -->
-        <center>
-          <div class="gallery-container">
-            <button class="gallery-nav-btn btn gallery-prev">❮</button>
-
-            <div class="gallery" id="gallery"></div>
-
-            <button class="gallery-nav-btn btn gallery-next">❯</button>
-          </div>
-        </center>
-
-        <br /><br /><br />
-
-        <div class="controls">
-          <div class="pagination"></div>
-        </div>
+        <a
+          id="yt_button_url"
+          class="subscribe-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-youtube"></i>
+        </a>
       </div>
+    </div>
 
-      <!-- MODAL -->
-      <br /><br />
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
+    <!-- GALERÍA DE VIDEOS -->
 
-          <div class="iframe-container">
-            <iframe
-              id="videoFrame"
-              src=""
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            >
-            </iframe>
+    <div class="gallery-container container-fluid">
+      <button class="gallery-nav-btn gallery-prev">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+
+      <div class="gallery" id="gallery"></div>
+
+      <button class="gallery-nav-btn gallery-next">
+        <i class="fa-solid fa-angle-right"></i>
+      </button>
+      <div class="pagination"></div>
+    </div>
+
+    <!-- MODAL -->
+
+    <!--<div id="myModal" class="modal-overlay">
+      <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-content">
+        <div class="video-iframe-container">
+          <iframe
+            id="videoFrame"
+            width="100%"
+            height="400"
+            src=""
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen=""
+            title="YouTube video player"
+          ></iframe>
+        </div>
+
+        <div class="modal-info">
+          <h3 id="modal_titulo" class="md_title"></h3>
+          <div class="md-stats">
+            <p id="md_views" class="md-info"><i class="fa-solid fa-eye"></i></p>
+            <p class="md-info likes">
+              <i class="fa-solid fa-thumbs-up"></i> 676
+            </p>
           </div>
-
-          <div class="modal-extra-content">
-            <p id="modal_titulo" style="font-size: 25px"></p>
-            <p id="md_views"></p>
-          </div>
+          <p id="md_views"></p>
         </div>
       </div>
     </div>
 
+    <div class="modal-overlay">
+      <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-content">
+        
+        <div class="modal-info">
+          <h3 class="md_title">
+            Berlín y la dama del armiño | Anuncio de fecha de estreno | Netflix
+          </h3>
+          <div class="md-stats">
+            <p class="md-info">30.5K vistas <i class="fa-solid fa-eye"></i></p>
+            <p class="md-info likes">
+              <i class="fa-solid fa-thumbs-up"></i> 676
+            </p>
+          </div>
+          <div class="profile-md">
+            <a
+              href="https://www.youtube.com/channel/UC5ZiUaIJ2b5dYBYGf5iEUrA"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                class="logo"
+                alt="Logo del canal"
+                src="https://yt3.ggpht.com/Jkyhl4-Nnkk6gHI1PitrcxiXVUyo2-oCc6nlfk2MMOtLEUt9Wt-bdCtNV1xON-x-u9-5OpWm=s240-c-k-c0x00ffffff-no-rj"
+            /></a>
+            <div class="pf-data">
+              <strong
+                ><h6>
+                  <a
+                    href="https://www.youtube.com/channel/UC5ZiUaIJ2b5dYBYGf5iEUrA"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Netflix Latinoamérica</a
+                  >
+                </h6></strong
+              >
+              <p class="md-info-fecha">publicado en 10/12/2025</p>
+              <p class="md-description">
+                «Berlín y la dama del armiño» se estrenará en Netflix el 15 de
+                mayo de 2026. En esta nueva entrega de la serie basada en el ...
+              </p>
+            </div>
+            <a
+              class="subscribe-btn"
+              href="https://www.youtube.com/channel/UC5ZiUaIJ2b5dYBYGf5iEUrA"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="fa-brands fa-youtube"></i>Youtube 13.8M</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>-->
     <!-- =============================== -->
     <!-- RECEPCIÓN DE DATOS DESDE REACT -->
     <!-- =============================== -->
@@ -117,10 +177,9 @@
       });
     </script>
 
-    <!-- =============================== -->
-    <!-- CREAR GALERÍA DINÁMICAMENTE -->
-    <!-- =============================== -->
     <script>
+      let currentSlide = 0;
+
       function buildGallery(videos) {
         const gallery = document.getElementById("gallery");
         gallery.innerHTML = "";
@@ -129,123 +188,136 @@
 
         chunked.forEach((chunk) => {
           const slide = document.createElement("div");
-          slide.classList.add("carousel-slide");
+          slide.classList.add("slide");
 
           chunk.forEach((video) => {
-            const div = document.createElement("div");
-            div.classList.add("video", "container");
-
-            div.dataset.videoId = video.id;
-            div.dataset.videoTitle = video.title;
-            div.dataset.videoViews = video.viewCount;
-
-            div.onclick = () => playvideoFromData(div);
-
-            div.innerHTML = `
-                <div class="miniatura">
-                    <img src="${video.thumbnail}" class="thumbnail" />
-                    <button class="play-button"></button>
-                    <span class="video-duration">${video.duration}</span>
-                </div>
-                <div class="texto">
-                    <p class="video-title"><strong>${video.title}</strong></p>
-                    <p class="video-info">${video.publishedAt}</p><br><br>
-                    <p class="video-info">${video.viewCount} vistas • ${video.likeCount} likes • ${video.commentCount} comentarios</p>
-                </div>
-            `;
-
-            slide.appendChild(div);
+            const videoCard = createVideoCard(video);
+            slide.appendChild(videoCard);
           });
 
           gallery.appendChild(slide);
         });
 
-        initCarousel();
+        buildPagination(chunked.length);
+        updateCarousel();
       }
-    </script>
 
-    <script>
-      // Utilidad para dividir videos en grupos de 3
-      function chunkArray(arr, size) {
-        const temp = [];
-        for (let i = 0; i < arr.length; i += size) {
-          temp.push(arr.slice(i, i + size));
-        }
-        return temp;
+      /* Crear la tarjeta del video con tu estructura JSX equivalente */
+      function createVideoCard(video) {
+        const container = document.createElement("div");
+        container.classList.add("video");
+        container.dataset.videoId = video.id;
+
+        container.onclick = () => playvideoFromData(container);
+
+        const miniatura = document.createElement("div");
+        miniatura.classList.add("miniatura");
+
+        const img = document.createElement("img");
+        img.src = video.thumbnail;
+        img.classList.add("thumbnail");
+        img.alt = `Miniatura de ${video.title}`;
+
+        const play = document.createElement("button");
+        play.classList.add("play-button");
+
+        const duration = document.createElement("span");
+        duration.classList.add("video-duration");
+        duration.textContent = video.duration;
+
+        miniatura.appendChild(img);
+        miniatura.appendChild(play);
+        miniatura.appendChild(duration);
+
+        const title = document.createElement("p");
+        title.classList.add("video-title");
+        title.innerHTML = `<strong>${video.title}</strong>`;
+
+        const fecha = document.createElement("p");
+        fecha.classList.add("video-info");
+        fecha.textContent = video.publishedAt;
+
+        const description = document.createElement("p");
+        description.classList.add("video-description");
+        description.textContent = video.description;
+
+        const info = document.createElement("p");
+        info.classList.add("video-info");
+        info.textContent =
+          `${Number(video.viewCount)} vistas • ` +
+          `${Number(video.likeCount)} likes • ` +
+          `${Number(video.commentCount)} comentarios`;
+
+        container.appendChild(miniatura);
+        container.appendChild(title);
+        container.appendChild(fecha);
+        container.appendChild(description);
+        container.appendChild(info);
+
+        return container;
       }
-    </script>
 
-    <!-- =============================== -->
-    <!-- CARRUSEL ORIGINAL (NO TOCADO) -->
-    <!-- =============================== -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const slides = document.querySelectorAll(".carousel-slide");
-        const totalSlides = slides.length;
-        const itemsPerPage = 1; // Un slide por página
-        let currentIndex = 0;
-        const paginationContainer = document.querySelector(".pagination");
+      /* -------------------------
+     CONTROLES DEL CARRUSEL
+-------------------------- */
+      function nextSlide() {
+        const totalSlides = document.getElementById("gallery").children.length;
+        if (currentSlide < totalSlides - 1) currentSlide++;
+        updateCarousel();
+      }
 
-        // Generar los botones de paginación
-        const totalPages = Math.ceil(totalSlides / itemsPerPage);
-        for (let i = 0; i < totalPages; i++) {
-          const pageButton = document.createElement("button");
-          pageButton.textContent = i + 1;
-          pageButton.classList.add("pagination-btn");
-          pageButton.addEventListener("click", () => goToPage(i));
-          paginationContainer.appendChild(pageButton);
-        }
+      function prevSlide() {
+        if (currentSlide > 0) currentSlide--;
+        updateCarousel();
+      }
 
-        // Navegar a una página específica
-        function goToPage(pageIndex) {
-          currentIndex = pageIndex;
-          updateCarousel();
-          updatePagination();
-        }
-
-        // Función para actualizar la vista del carrusel
-        function updateCarousel() {
-          const gallery = document.querySelector(".gallery");
-          const offset = -currentIndex * 100; // Desplazamiento por cada slide
-          gallery.style.transform = `translateX(${offset}%)`;
-        }
-
-        // Actualizar los estilos de los botones de paginación
-        function updatePagination() {
-          const pageButtons = document.querySelectorAll(".pagination-btn");
-          pageButtons.forEach((button, index) => {
-            if (index === currentIndex) {
-              button.classList.add("active"); // Resaltar el botón activo
-            } else {
-              button.classList.remove("active");
-            }
-          });
-        }
-
-        // Configurar los botones de siguiente y anterior
-        document
-          .querySelector(".gallery-next")
-          .addEventListener("click", () => {
-            if (currentIndex < totalSlides - 1) {
-              currentIndex++; // Avanza al siguiente slide
-              updateCarousel();
-              updatePagination();
-            }
-          });
-
-        document
-          .querySelector(".gallery-prev")
-          .addEventListener("click", () => {
-            if (currentIndex > 0) {
-              currentIndex--; // Retrocede al slide anterior
-              updateCarousel();
-              updatePagination();
-            }
-          });
-
-        // Inicializa la paginación
+      function updateCarousel() {
+        const gallery = document.getElementById("gallery");
+        gallery.style.transform = `translateX(-${currentSlide * 100}%)`;
         updatePagination();
-      });
+      }
+
+      /* -------------------------
+        PAGINACIÓN
+-------------------------- */
+      function buildPagination(totalSlides) {
+        const pagination = document.querySelector(".pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement("span");
+          dot.classList.add("pagination-dot");
+          dot.dataset.index = i;
+
+          dot.onclick = () => {
+            currentSlide = i;
+            updateCarousel();
+          };
+
+          pagination.appendChild(dot);
+        }
+      }
+
+      function updatePagination() {
+        const dots = document.querySelectorAll(".pagination-dot");
+        dots.forEach((dot) => dot.classList.remove("active"));
+        if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+      }
+
+      /* -------------------------
+        UTILIDADES
+-------------------------- */
+      function chunkArray(arr, size) {
+        const res = [];
+        for (let i = 0; i < arr.length; i += size) {
+          res.push(arr.slice(i, i + size));
+        }
+        return res;
+      }
+
+      /* Botones carrusel */
+      document.querySelector(".gallery-prev").onclick = prevSlide;
+      document.querySelector(".gallery-next").onclick = nextSlide;
     </script>
 
     <!-- =============================== -->
