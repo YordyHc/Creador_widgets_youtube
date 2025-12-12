@@ -139,12 +139,12 @@
   background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-items: center; /* Centrado horizontal */
-  overflow: auto;
   padding-top: 4%;
   z-index: 10;
 }
 
 .modal-content {
+  overflow: auto;
   background-color: #0091ff00;
   width: 71%;
   overflow-y: auto;
