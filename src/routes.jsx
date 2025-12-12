@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     path: "/", // ruta base
     element: <App />,
     children: [
-      { index: true, element: <Home /> }, // 🔹 usar index para la ruta por defecto
+      { index: true, element: <Pruebas /> }, // 🔹 usar index para la ruta por defecto
       { path: "Prueba", element: <DisenoPrueba /> },
       { path: "Pruebas", element: <Pruebas /> },
     ],
