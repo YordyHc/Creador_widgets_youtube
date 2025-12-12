@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import DisenoCard from "../../components/Home/DisenoCard";
 
 export default function Home() {
+  const { canal, videos } = useOutletContext();
   const [activeIndex, setActiveIndex] = useState(0); // El primero inicia activo
+
+  if (!canal || !videos) {
+    return <p>Cargando datos...</p>;
+  }
 
   return (
     <section>
@@ -44,9 +49,21 @@ export default function Home() {
           ))}
         </div>
         <div className="muestra">
-          <img
-            src="https://placehold.co/1000x400/a1a2a3/ffffff?text=ACA+VA+EL+DISEÑO"
-            alt="prueba"
+          <iframe
+            src="/plantillas/pages/widget_1.html"
+            style={{ width: "100%", height: "100vh", border: "none" }}
+            title="Widget_1"
+            onLoad={(e) => {
+              console.log("→ Enviando datos al iframe:", canal, videos);
+
+              e.target.contentWindow.postMessage(
+                {
+                  datos: canal,
+                  videos: videos.videos,
+                },
+                "*"
+              );
+            }}
           />
         </div>
         <div className="continuar">
