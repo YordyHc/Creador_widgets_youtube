@@ -1,96 +1,251 @@
-<?php
-// Recibir los datos enviados a través de POST
-$data = json_decode(file_get_contents('php://input'), true);
-
-// Si los datos son correctos, se puede acceder a la variable 'videos'
-$videos = $data['videos']; 
-?>
-
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/creacion_widgets_youtube/style/widget_4.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../assets/style/widget_4.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
     <title>Widget Carrusel</title>
-</head>
-<body><br>
-    <center><div class="carousel-container">
-        <div class="carousel-wrapper">
-            <?php 
-            $chunkedVideos = array_chunk($videos, 8); // Dividir en grupos de 6 elementos por slide
-            foreach ($chunkedVideos as $chunk): ?>
-                <div class="carousel-slide">
-                    <?php foreach ($chunk as $video): ?>
-                        <div class="video-item"
-                            data-video-id="<?= htmlspecialchars($video['id'], ENT_QUOTES, 'UTF-8') ?>" 
-                            data-video-title="<?= htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8') ?>" 
-                            data-video-views="<?= htmlspecialchars($video['views'], ENT_QUOTES, 'UTF-8') ?>"
-                            onclick="playvideoFromData(this)">
-                            <div class="miniatura">
-                                <img src="<?=$video['thumbnail']?>" alt="Imagen">
-                                <button class="play-button"></button>
-                                <span class="video-duration"><?=$video['duration']?></span>
-                            </div>                         
-                            <div class="descripcion">
-                                <div class="vd_titulo"><strong><?= $video['title']?></strong></div>
-                                <div class="video-info"><?=$video['publishedAt']?></div>
-                                <div class="vd-dscpn"><?=$video['description']?></div>
-                                <div class="video-info"><?=$video['views']?> vistas • <?=$video['likes']?> likes • <?=$video['comments']?> comentarios</div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endforeach; ?>
+  </head>
+  <body>
+    <br />
+
+    <center>
+      <div class="carousel-container">
+        <div class="carousel-wrapper" id="carouselWrapper">
+          <!-- Aquí se insertará el contenido dinámicamente -->
         </div>
+
         <div class="nav-buttons">
-            <button id="prevBtn">❮</button>
-            <button id="nextBtn">❯</button>
+          <button id="prevBtn">❮</button>
+          <button id="nextBtn">❯</button>
         </div>
-    </div></center>
-    <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
+      </div>
+    </center>
 
-                
-                <div class="iframe-container">
-                    <iframe id="videoFrame" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
+    <!-- =====================================================
+                    NUEVO MODAL ADAPTADO
+===================================================== -->
+    <div id="myModal" class="modal-overlay" style="display: none">
+      <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
 
-                
-                <div class="modal-extra-content">
-                    <p id="modal_titulo" style="font-size: 25px"></p>
-                    <p id="md_views"></p>
-                </div>
+      <div class="modal-content">
+        <div class="video-iframe-container">
+          <iframe
+            id="videoFrame"
+            width="100%"
+            height="400"
+            src=""
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen=""
+          ></iframe>
+        </div>
+
+        <div class="modal-info">
+          <h3 id="modal_titulo" class="md_title"></h3>
+
+          <div class="md-stats">
+            <p class="md-info">
+              <span id="md_views"></span> <i class="fa-solid fa-eye"></i>
+            </p>
+
+            <p class="md-info likes">
+              <i class="fa-solid fa-thumbs-up"></i>
+              <span id="md_likes"></span>
+            </p>
+          </div>
+
+          <div class="profile-md">
+            <a class="logo_href" href="#" target="_blank">
+              <img class="logo img_perfil" alt="Logo del canal" />
+            </a>
+
+            <div class="pf-data">
+              <h6>
+                <a class="canal_url" href="#" target="_blank"></a>
+              </h6>
+              <p class="md-info-fecha" id="md_fecha"></p>
+              <p class="md-description" id="md_description"></p>
             </div>
+
+            <a class="yt_button_url subscribe-btn" href="#" target="_blank">
+              <i class="fa-brands fa-youtube"></i>
+              <span class="spn-you-subs"></span>
+            </a>
+          </div>
         </div>
-    <br>
+      </div>
+    </div>
+
+    <script src="../assets/script/herramientas.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <br />
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const slides = document.querySelectorAll(".carousel-slide");
-            const totalSlides = slides.length;
-            let currentIndex = 0;
+      /* =====================================================
+                VARIABLES GLOBALES
+===================================================== */
+      let canalData = null;
+      let videosData = null;
 
-            document.getElementById("nextBtn").addEventListener("click", () => {
-                if (currentIndex < totalSlides - 1) {
-                    currentIndex++; // Solo avanza si no está en el último slide
-                    updateCarousel();
-                }
-            });
+      /* =====================================================
+        RECIBIR DATOS DESDE EL PARENT
+===================================================== */
+      window.addEventListener("message", (event) => {
+        if (!event.data) return;
 
-            document.getElementById("prevBtn").addEventListener("click", () => {
-                if (currentIndex > 0) {
-                    currentIndex--; // Solo retrocede si no está en el primer slide
-                    updateCarousel();
-                }
-            });
+        if (event.data.datos) canalData = event.data.datos;
+        if (event.data.videos) {
+          videosData = event.data.videos;
+          construirCarrusel(videosData);
+        }
+      });
 
-            function updateCarousel() {
-                const offset = -currentIndex * 100;
-                document.querySelector(".carousel-wrapper").style.transform = `translateX(${offset}%)`;
-            }
-        });
+      /* =====================================================
+            CONSTRUIR CARRUSEL SIN PHP
+===================================================== */
+      function construirCarrusel(videos) {
+        const wrapper = document.getElementById("carouselWrapper");
+        wrapper.innerHTML = "";
+
+        const chunkSize = 8;
+        for (let i = 0; i < videos.length; i += chunkSize) {
+          const slide = document.createElement("div");
+          slide.classList.add("carousel-slide");
+
+          const grupo = videos.slice(i, i + chunkSize);
+
+          grupo.forEach((video) => {
+            slide.innerHTML += `
+                <div class="video-item" data-video-id="${
+                  video.id
+                }" onclick="playvideoFromData(this)">
+                    <div class="miniatura">
+                        <img src="${video.thumbnail}" alt="Imagen">
+                        <button class="play-button"></button>
+                        <span class="video-duration">${formatYouTubeDuration(
+                          video.duration
+                        )}</span>
+                    </div>
+                    <div class="descripcion">
+                        <div class="vd_titulo"><strong>${
+                          video.title
+                        }</strong></div>
+                        <div class="video-info">${formatearFecha(
+                          video.publishedAt
+                        )}</div>
+                        <div class="vd-dscpn">${video.description}</div>
+                        <div class="video-info">${redondeo(
+                          video.viewCount
+                        )} vistas • ${redondeo(
+              video.likeCount
+            )} likes • ${redondeo(video.commentCount)} comentarios</div>
+                    </div>
+                </div>
+            `;
+          });
+
+          wrapper.appendChild(slide);
+        }
+      }
+
+      /* =====================================================
+                    CARRUSEL
+===================================================== */
+      let currentIndex = 0;
+
+      document.getElementById("nextBtn").onclick = () => {
+        const slides = document.querySelectorAll(".carousel-slide");
+        if (currentIndex < slides.length - 1) currentIndex++;
+        updateCarousel();
+      };
+
+      document.getElementById("prevBtn").onclick = () => {
+        if (currentIndex > 0) currentIndex--;
+        updateCarousel();
+      };
+
+      function updateCarousel() {
+        const offset = -currentIndex * 100;
+        document.querySelector(
+          ".carousel-wrapper"
+        ).style.transform = `translateX(${offset}%)`;
+      }
+
+      /* =====================================================
+                PLAY VIDEO Y LLENAR MODAL
+===================================================== */
+      function playvideoFromData(el) {
+        const id = el.dataset.videoId;
+        const video = videosData.find((v) => v.id === id);
+        if (video) playvideo(video);
+      }
+
+      const modal = document.getElementById("myModal");
+      const videoFrame = document.getElementById("videoFrame");
+
+      function playvideo(video) {
+        modal.style.display = "flex";
+
+        /* === Video Frame === */
+        videoFrame.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0`;
+
+        /* === Datos del Video === */
+        document.getElementById("modal_titulo").innerText = video.title;
+        document.getElementById("md_views").innerText = redondeo(
+          video.viewCount
+        );
+        document.getElementById("md_likes").innerText = redondeo(
+          video.likeCount
+        );
+        document.getElementById("md_description").innerText = video.description;
+        document.getElementById("md_fecha").innerText = new Date(
+          video.publishedAt
+        ).toLocaleDateString();
+
+        /* === Datos del Canal === */
+        if (canalData) {
+          document.querySelector(".img_perfil").src = canalData.logoUrl;
+          document.querySelector(".logo_href").href =
+            document.querySelector(".canal_url").href =
+            document.querySelector(".yt_button_url").href =
+              `https://www.youtube.com/channel/${canalData.idcanal}`;
+
+          document.querySelector(".canal_url").textContent = canalData.title;
+          document.querySelector(
+            ".spn-you-subs"
+          ).textContent = `Youtube ${redondeo(canalData.subscriberCount)}`;
+        }
+      }
+
+      /* =====================================================
+                CERRAR MODAL
+===================================================== */
+      document.querySelector(".modal-close").onclick = cerrarModal;
+
+      window.onclick = function (event) {
+        if (event.target === modal) cerrarModal();
+      };
+
+      function cerrarModal() {
+        modal.style.display = "none";
+        videoFrame.src = "";
+      }
     </script>
-</body>
+  </body>
 </html>
