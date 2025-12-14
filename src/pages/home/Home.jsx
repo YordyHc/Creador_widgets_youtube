@@ -5,6 +5,12 @@ import DisenoCard from "../../components/Home/DisenoCard";
 export default function Home() {
   const { canal, videos } = useOutletContext();
   const [activeIndex, setActiveIndex] = useState(0); // El primero inicia activo
+  const widgetPages = [
+    "/plantillas/pages/widget_1.html", // DisenoCard 1
+    "/plantillas/pages/widget_2.html", // DisenoCard 2
+    "/plantillas/pages/widget_3.html", // DisenoCard 3
+    "/plantillas/pages/widget_4.html", // DisenoCard 4
+  ];
 
   if (!canal || !videos) {
     return <p>Cargando datos...</p>;
@@ -50,9 +56,9 @@ export default function Home() {
         </div>
         <div className="muestra">
           <iframe
-            src="/plantillas/pages/widget_1.html"
+            src={widgetPages[activeIndex]}
             style={{ width: "100%", height: "100vh", border: "none" }}
-            title="Widget_1"
+            title={`Widget_${activeIndex + 1}`}
             onLoad={(e) => {
               console.log("→ Enviando datos al iframe:", canal, videos);
 
@@ -67,7 +73,7 @@ export default function Home() {
           />
         </div>
         <div className="continuar">
-          <Link className="boton btn" to="/Prueba">
+          <Link className="boton btn" to="/Prueba" state={{ activeIndex }}>
             Continuar con el diseño
           </Link>
         </div>

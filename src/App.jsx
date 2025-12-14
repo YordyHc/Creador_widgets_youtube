@@ -40,7 +40,14 @@ function App() {
     <div className="page">
       <Navbar />
       <main style={{ marginTop: "60px" }}>
-        <Outlet context={{ canal, videos }} />
+        <Outlet
+          context={{
+            canal,
+            setCanal,
+            videos,
+            setVideos,
+          }}
+        />
       </main>
       <Footer />
     </div>
