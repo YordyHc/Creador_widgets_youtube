@@ -60,8 +60,6 @@ export default function Home() {
             style={{ width: "100%", height: "100vh", border: "none" }}
             title={`Widget_${activeIndex + 1}`}
             onLoad={(e) => {
-              console.log("→ Enviando datos al iframe:", canal, videos);
-
               e.target.contentWindow.postMessage(
                 {
                   datos: canal,

@@ -145,3 +145,39 @@ body {
 .crear {
   padding: 15px;
 }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex !important; /* 👈 SIEMPRE visible cuando existe */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+}
+
+.modal-content h5 {
+  color: rgb(210, 38, 8);
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.confirmationMessage {
+  display: none;
+  color: green;
+  margin-bottom: 10px;
+  font-size: 14px;
+}

@@ -26,7 +26,7 @@ export default function DisenoPrueba() {
   const procesarCanal = async () => {
     if (!urlCanal) return;
 
-    const resultado = validarYExtraerCanalYoutube(urlCanal);
+    const resultado = urlCanal;
 
     if (!resultado.channelId && !resultado.username && !resultado.handle) {
       alert("La URL no es válida");
@@ -59,6 +59,45 @@ export default function DisenoPrueba() {
       console.error("Error cargando datos:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [modalMensaje, setModalMensaje] = useState("");
+  const [modalLoading, setModalLoading] = useState(false);
+
+  const cerrarModal = () => {
+    setMostrarModal(false);
+  };
+
+  const copiarTexto = () => {
+    // tu lógica actual
+  };
+
+  const crearWidget = async () => {
+    if (!canal?.idcanal) {
+      alert("Primero debes cargar un canal válido");
+      return;
+    }
+
+    setMostrarModal(true);
+    setModalLoading(true);
+    setModalMensaje("");
+
+    try {
+      const data = await peticionApi(
+        "http://127.0.0.1:8000/api/youtube/widsyord/",
+        "POST",
+        {
+          id_canal: canal.idcanal, // 👈 AQUÍ
+        }
+      );
+
+      setModalMensaje(data.codigo_wid);
+    } catch (error) {
+      setModalMensaje("Error al generar el widget");
+    } finally {
+      setModalLoading(false);
     }
   };
 
@@ -104,10 +143,52 @@ export default function DisenoPrueba() {
       </div>
 
       <div className="crear">
-        <button className="boton btn" type="button">
+        <button className="boton btn" type="button" onClick={crearWidget}>
           Crear widget
         </button>
       </div>
+
+      {mostrarModal && (
+        <div className="modal" onClick={cerrarModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={cerrarModal}>
+              &times;
+            </span>
+
+            <h5>
+              <strong>
+                WIDGET GENERADO
+                <br />
+                INSERTE EL SCRIPT EN SU PROYECTO
+              </strong>
+            </h5>
+
+            <br />
+            <pre id="modal-body">
+              {modalLoading
+                ? "Generando widget..."
+                : `<div class="yordwid-${
+                    activeIndex + 1
+                  }-${modalMensaje}"></div>
+<script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`}
+            </pre>
+
+            <br />
+            <div className="confirmationMessage" id="confirmationMessage">
+              Copiado
+            </div>
+
+            <button
+              className="btn btn-success btn-sm"
+              id="copyButton"
+              onClick={copiarTexto}
+              disabled={modalLoading}
+            >
+              Copiar script
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
