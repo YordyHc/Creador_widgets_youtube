@@ -167,7 +167,7 @@ export default function DisenoPrueba() {
             <pre id="modal-body">
               {modalLoading
                 ? "Generando widget..."
-                : `<div class="yordwid-${
+                : `<div class="yordwid-ywt${
                     activeIndex + 1
                   }-${modalMensaje}"></div>
 <script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`}
