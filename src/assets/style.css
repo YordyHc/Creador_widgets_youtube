@@ -3,10 +3,10 @@
   --verde-gris: #94d9be;
   --verde-claro: #bcedced9;
   --verde-menta: #9be1c6;
-  --verde-transparente: #bcedce57;
   --azul-claro: #9adaff;
   --azul-gris: #7aa6be;
-  --gris: #737373;
+  --rosa-oscuro: #aa575a;
+  --rosa-transparente: #aa575a78;
 }
 
 /*home*/
@@ -18,11 +18,12 @@
 }
 
 body {
-  background: #ffffff;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(154, 218, 255, 1) 50%,
+  background: #89ffb5;
+  background: linear-gradient(
+    0deg,
+    rgba(137, 255, 181, 1) 0%,
+    rgba(154, 218, 255, 1) 60%,
+    rgba(154, 218, 255, 1) 89%,
     rgba(137, 255, 181, 1) 100%
   );
 }
@@ -47,6 +48,10 @@ body {
   padding: 10px;
 }
 
+.red-social button,
+.continuar a {
+  font-weight: 600 !important;
+}
 .disenos {
   width: 80%;
   display: flex;
@@ -64,7 +69,7 @@ body {
   transition: 0.2s;
 }
 .cont-img:hover {
-  background: var(--verde-transparente);
+  background: var(--rosa-transparente);
   border-radius: 20px;
   border: var(--verde-gris) 3px solid;
   transform: scale(0.95);
@@ -91,13 +96,13 @@ body {
 }
 
 .boton {
-  background-color: var(--gris) !important;
+  background-color: var(--rosa-oscuro) !important;
   color: white !important;
   padding: 6px 15px !important;
   border-radius: 20px !important;
 }
 .boton:hover {
-  background-color: #ffffffc4 !important;
+  background-color: var(--rosa-transparente) !important;
   color: #070707 !important;
 }
 .red-boton {
@@ -105,7 +110,7 @@ body {
   border-radius: 20px !important;
 }
 .red-boton:hover {
-  background-color: var(--gris) !important;
+  background-color: var(--rosa-oscuro) !important;
   color: #ffffff !important;
 }
 .continuar {

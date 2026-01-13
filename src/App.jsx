@@ -11,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const urlCanal = "/pruebas/canal.json";
+  /*appConfig.url.canal + appConfig.handle; /*"/pruebas/canal.json";*/
 
   useEffect(() => {
     async function cargarDatos() {
@@ -20,8 +21,8 @@ function App() {
         setCanal(canalData);
 
         // 2. cargar videos usando canal.idcanal
-        const urlVideos =
-          "/pruebas/videos.json"; /*appConfig.url.videos + canalData.idcanal*/
+        const urlVideos = "/pruebas/videos.json";
+        /*appConfig.url.videos + canalData.idcanal; /* "/pruebas/videos.json";*/
         const videosData = await peticionApi(urlVideos);
         setVideos(videosData);
       } catch (error) {

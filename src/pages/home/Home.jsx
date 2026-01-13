@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import DisenoCard from "../../components/Home/DisenoCard";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+
 export default function Home() {
   const { canal, videos } = useOutletContext();
   const [activeIndex, setActiveIndex] = useState(0); // El primero inicia activo
@@ -22,7 +25,7 @@ export default function Home() {
         <div className="redes">
           <div className="red-social">
             <button className="red-boton btn" type="button">
-              Youtube
+              <FontAwesomeIcon icon={faYoutube} /> Youtube
             </button>
           </div>
         </div>
@@ -71,7 +74,12 @@ export default function Home() {
           />
         </div>
         <div className="continuar">
-          <Link className="boton btn" to="/Prueba" state={{ activeIndex }}>
+          <Link
+            className="boton btn"
+            to="/Prueba"
+            state={{ activeIndex }}
+            onClick={() => window.scrollTo(0, 0)}
+          >
             Continuar con el diseño
           </Link>
         </div>

@@ -32,23 +32,12 @@ export function validarYExtraerCanalYoutube(url) {
   const match = url.match(pattern);
 
   if (!match) {
-    return { error: "La URL no es un canal de YouTube válido" };
+    return null;
   }
 
-  let channelId = "";
-  let username = "";
-  let handle = "";
+  if (match[6]) {
+    return `@${match[6]}`; // handle
+  }
 
-  if (match[3]) channelId = match[3]; // /channel/UCxxxx
-  else if (match[4]) channelId = match[4]; // /c/Nombre
-  else if (match[5]) username = match[5]; // /user/Nombre
-  else if (match[6]) handle = match[6]; // /@canal
-
-  return { channelId, username, handle };
-}
-
-export async function resolverAHandle({ channelId, username }) {
-  // Aquí llamarías a tu backend o a YouTube API
-  // Mock
-  return "@canal_resuelto";
+  return match[3] || match[4] || match[5];
 }

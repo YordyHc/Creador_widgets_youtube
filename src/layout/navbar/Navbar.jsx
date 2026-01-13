@@ -16,7 +16,15 @@ export default function Navbar() {
 
   return (
     <header className={scrolled ? "scrolled" : ""}>
-      <h3>Mi Sitio</h3>
+      <div className="container px-5">
+        <Link to="/" className="navbar-brand fw-bold">
+          <img
+            src="/imgs/logos/widsyord_titulo.png"
+            className="img-fluid widsyord-titulo"
+            alt="titulo"
+          />
+        </Link>
+      </div>
     </header>
   );
 }

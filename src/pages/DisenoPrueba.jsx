@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useOutletContext, useLocation } from "react-router-dom";
-import {
-  peticionApi,
-  validarYExtraerCanalYoutube,
-  resolverAHandle,
-} from "../assets/utils/data";
+import appConfig from "../assets/utils/appConfig";
+import { peticionApi, validarYExtraerCanalYoutube } from "../assets/utils/data";
 
 export default function DisenoPrueba() {
   const [urlCanal, setUrlCanal] = useState("");
@@ -26,9 +23,9 @@ export default function DisenoPrueba() {
   const procesarCanal = async () => {
     if (!urlCanal) return;
 
-    const resultado = urlCanal;
+    const identificador = validarYExtraerCanalYoutube(urlCanal);
 
-    if (!resultado.channelId && !resultado.username && !resultado.handle) {
+    if (!identificador) {
       alert("La URL no es válida");
       return;
     }
@@ -36,21 +33,13 @@ export default function DisenoPrueba() {
     setLoading(true);
 
     try {
-      let canalFinal = resultado.handle;
+      let UrlPeticanal = appConfig.url.canal + identificador;
 
-      // Resolver los casos que no sean @canal
-      if (!canalFinal) {
-        canalFinal = await resolverAHandle({
-          channelId: resultado.channelId,
-          username: resultado.username,
-        });
-      }
-
-      // Cargar datos
-      const canalData = await peticionApi(canalFinal);
+      // Cargar datos del canal
+      const canalData = await peticionApi(UrlPeticanal);
       setCanal(canalData);
 
-      const urlVideos = "/pruebas/videos_2.json";
+      const urlVideos = appConfig.url.videos + canalData.idcanal; //"/pruebas/videos_2.json";
       const videosData = await peticionApi(urlVideos);
       setVideos(videosData);
 
