@@ -170,7 +170,7 @@ export default function DisenoPrueba() {
                 : `<div class="yordwid-ywt${
                     activeIndex + 1
                   }-${modalMensaje}"></div>
-<script src="widsyord.vercel.app/plantillas/assets/script/IntegrarYorwids.js"></script>`}
+<script src="https://widsyord.vercel.app/plantillas/assets/script/IntegrarYorwids.js"></script>`}
             </pre>
 
             <br />
