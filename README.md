@@ -1,16 +1,27 @@
-# React + Vite
+# CREADOR DE WIDGET DE YOUTUBE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Descripción:**  
+Esta es una herramienta sencilla y eficiente para generar widgets personalizados de canales de YouTube. Este proyecto permite a los usuarios crear widgets que muestren videos, listas de reproducción o canales de YouTube mediante la inserción del link del canal, la aplicacion generará un script HTML para integrar en tu proyecto.
+Aun en proceso de despliegue.
 
-Currently, two official plugins are available:
+### Imagen de referencia
+![Captura de pantalla 2025-04-02 202518](https://github.com/user-attachments/assets/6e1ef0db-a838-4258-9f3a-0ec1e628c0f0)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+### TECNOLOGÍAS USADAS
+- **PHP**
+- **HTML**
+- **CSS**
+- **Javascript**
+- **Bootstrap**
+  
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Características
 
-## Expanding the ESLint configuration
+- **Generación de Widgets**: Crea widgets de YouTube para videos, listas de reproducción o canales.
+- **Fácil de Integrar**: Solo necesitas copiar y pegar el código generado en tu proyecto web.
+- **Interfaz Amigable**: Generador visual fácil de usar que permite elegir el tipo de contenido a mostrar.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Eso es todo**
