@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../assets/style/widget_1.css" />
+    <title>widget 1</title>
+  </head>
+
+  <body class="yorwids">
+    <div class="channel-header">
+      <img id="img_portada" class="channel-banner" alt="Banner" />
+
+      <div class="profile">
+        <br /><br /><br /><br /><br />
+        <a class="logo_href" href="#" target="_blank" rel="noopener noreferrer">
+          <img class="logo img_perfil" alt="Logo del canal" />
+        </a>
+        <div class="pf-data">
+          <br />
+          <h2>
+            <a
+              class="canal_url"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            ></a>
+          </h2>
+          <p id="stats" class="stats"></p>
+        </div>
+        <a
+          class="yt_button_url subscribe-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-youtube"></i><span class="spn-you-subs"></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- GALERÍA DE VIDEOS -->
+
+    <div class="gallery-container container-fluid">
+      <button class="gallery-nav-btn gallery-prev">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+
+      <div class="gallery" id="gallery"></div>
+
+      <button class="gallery-nav-btn gallery-next">
+        <i class="fa-solid fa-angle-right"></i>
+      </button>
+      <div class="pagination"></div>
+    </div>
+
+    <!-- MODAL -->
+
+    <div id="myModal" class="modal-overlay" style="display: none">
+      <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="modal-content">
+        <div class="video-iframe-container">
+          <iframe
+            id="videoFrame"
+            width="100%"
+            height="400"
+            src=""
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen=""
+            title="YouTube video player"
+          ></iframe>
+        </div>
+
+        <div class="modal-info">
+          <h3 id="modal_titulo" class="md_title"></h3>
+          <div class="md-stats">
+            <p class="md-info">
+              <span id="md_views"></span><i class="fa-solid fa-eye"></i>
+            </p>
+            <p class="md-info likes">
+              <i class="fa-solid fa-thumbs-up"></i>
+              <span id="md_likes"></span>
+            </p>
+          </div>
+          <div class="profile-md">
+            <a
+              class="logo_href"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img class="logo img_perfil" alt="Logo del canal"
+            /></a>
+            <div class="pf-data">
+              <strong
+                ><h6>
+                  <a
+                    class="canal_url"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  ></a></h6
+              ></strong>
+              <p class="md-info-fecha" id="md_fecha"></p>
+              <p class="md-description" id="md_description"></p>
+            </div>
+            <a
+              class="yt_button_url subscribe-btn"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fa-brands fa-youtube"></i
+              ><span class="spn-you-subs"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- =============================== -->
+    <!-- RECEPCIÓN DE DATOS DESDE REACT -->
+    <!-- =============================== -->
+    <script src="../assets/script/herramientas.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.addEventListener("message", (event) => {
+        if (!event.data) return;
+
+        const { datos, videos } = event.data;
+
+        if (!datos || !videos) return;
+
+        // Datos del canal (objeto plano)
+        document.getElementById("img_portada").src = datos.bannerImage;
+        document.querySelectorAll(".img_perfil").forEach((img) => {
+          img.src = datos.logoUrl;
+        });
+
+        document.querySelectorAll(".canal_url").forEach((el) => {
+          el.href = "https://www.youtube.com/channel/" + datos.idcanal;
+          el.textContent = datos.title;
+        });
+
+        document.querySelectorAll(".logo_href").forEach((el) => {
+          el.href = "https://www.youtube.com/channel/" + datos.idcanal;
+        });
+
+        document.getElementById("stats").textContent = `${redondeo(
+          datos.subscriberCount,
+        )} Suscriptores • ${redondeo(datos.videoCount)} Videos • ${redondeo(
+          datos.viewCount,
+        )} Vistas`;
+
+        document.querySelectorAll(".yt_button_url").forEach((el) => {
+          el.href = "https://www.youtube.com/channel/" + datos.idcanal;
+        });
+        document.querySelectorAll(".spn-you-subs").forEach((spn) => {
+          spn.textContent = "Youtube " + redondeo(datos.subscriberCount);
+        });
+        // Construir galería con los videos reales
+        buildGallery(videos);
+      });
+    </script>
+
+    <script>
+      let currentSlide = 0;
+
+      function buildGallery(videos) {
+        const gallery = document.getElementById("gallery");
+        gallery.innerHTML = "";
+
+        const chunked = chunkArray(videos, 3);
+
+        chunked.forEach((chunk) => {
+          const slide = document.createElement("div");
+          slide.classList.add("slide");
+
+          chunk.forEach((video) => {
+            const videoCard = createVideoCard(video);
+            slide.appendChild(videoCard);
+          });
+
+          gallery.appendChild(slide);
+        });
+
+        buildPagination(chunked.length);
+        updateCarousel();
+      }
+
+      /* Crear la tarjeta del video con tu estructura JSX equivalente */
+      function createVideoCard(video) {
+        const container = document.createElement("div");
+        container.classList.add("video");
+        container.dataset.videoId = video.id;
+
+        container.onclick = () => playvideoFromData(container);
+
+        const miniatura = document.createElement("div");
+        miniatura.classList.add("miniatura");
+
+        const img = document.createElement("img");
+        img.src = video.thumbnail;
+        img.classList.add("thumbnail");
+        img.alt = `Miniatura de ${video.title}`;
+
+        const play = document.createElement("button");
+        play.classList.add("play-button");
+
+        const playicon = document.createElement("i");
+        playicon.classList.add("fa-solid", "fa-play");
+
+        const duration = document.createElement("span");
+        duration.classList.add("video-duration");
+        duration.textContent = formatYouTubeDuration(video.duration);
+
+        play.appendChild(playicon);
+        miniatura.appendChild(img);
+        miniatura.appendChild(play);
+        miniatura.appendChild(duration);
+
+        const title = document.createElement("p");
+        title.classList.add("video-title");
+        title.innerHTML = `<strong>${video.title}</strong>`;
+
+        const fecha = document.createElement("p");
+        fecha.classList.add("video-info");
+        fecha.textContent = formatearFecha(video.publishedAt);
+
+        const description = document.createElement("p");
+        description.classList.add("video-description");
+        description.textContent = video.description;
+
+        const info = document.createElement("p");
+        info.classList.add("video-info");
+        info.textContent =
+          `${redondeo(Number(video.viewCount))} vistas • ` +
+          `${redondeo(Number(video.likeCount))} likes • ` +
+          `${redondeo(Number(video.commentCount))} comentarios`;
+
+        container.appendChild(miniatura);
+        container.appendChild(title);
+        container.appendChild(fecha);
+        container.appendChild(description);
+        container.appendChild(info);
+
+        return container;
+      }
+
+      /* -------------------------
+     CONTROLES DEL CARRUSEL
+-------------------------- */
+      function nextSlide() {
+        const totalSlides = document.getElementById("gallery").children.length;
+        if (currentSlide < totalSlides - 1) currentSlide++;
+        updateCarousel();
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) currentSlide--;
+        updateCarousel();
+      }
+
+      function updateCarousel() {
+        const gallery = document.getElementById("gallery");
+        gallery.style.transform = `translateX(-${currentSlide * 100}%)`;
+        updatePagination();
+      }
+
+      /* -------------------------
+        PAGINACIÓN
+-------------------------- */
+      function buildPagination(totalSlides) {
+        const pagination = document.querySelector(".pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 0; i < totalSlides; i++) {
+          const btn = document.createElement("button");
+          btn.classList.add("paginat-btn");
+          btn.dataset.index = i;
+          btn.textContent = i + 1; // número visible (1,2,3...)
+
+          btn.onclick = () => {
+            currentSlide = i;
+            updateCarousel();
+          };
+
+          pagination.appendChild(btn);
+        }
+      }
+
+      function updatePagination() {
+        const numbers = document.querySelectorAll(".paginat-btn");
+        numbers.forEach((num) => num.classList.remove("active"));
+
+        if (numbers[currentSlide]) {
+          numbers[currentSlide].classList.add("active");
+        }
+      }
+
+      /* -------------------------
+        UTILIDADES
+-------------------------- */
+      function chunkArray(arr, size) {
+        const res = [];
+        for (let i = 0; i < arr.length; i += size) {
+          res.push(arr.slice(i, i + size));
+        }
+        return res;
+      }
+
+      /* Botones carrusel */
+      document.querySelector(".gallery-prev").onclick = prevSlide;
+      document.querySelector(".gallery-next").onclick = nextSlide;
+    </script>
+
+    <!-- =============================== -->
+    <!-- MODAL VIDEO ORIGINAL -->
+    <!-- =============================== -->
+    <script>
+      let canalData = null;
+      let videosData = null;
+
+      /* =========================================
+   RECEPTOR DE DATOS DESDE EL PARENT
+========================================= */
+      window.addEventListener("message", (event) => {
+        if (!event.data) return;
+
+        const { datos, videos } = event.data;
+
+        if (datos) canalData = datos;
+        if (videos) videosData = videos;
+      });
+
+      function playvideoFromData(el) {
+        const videoId = el.dataset.videoId;
+
+        const video = videosData.find((v) => v.id === videoId);
+        if (!video) return;
+
+        playvideo(video);
+      }
+
+      var modal = document.getElementById("myModal");
+      var closeBtn = document.getElementsByClassName("modal-close")[0];
+      var videoFrame = document.getElementById("videoFrame");
+
+      /* =========================================
+        FUNCIÓN PRINCIPAL DEL MODAL
+========================================= */
+      function playvideo(video) {
+        modal.style.display = "flex";
+
+        /* === Video Frame === */
+        videoFrame.src =
+          "https://www.youtube.com/embed/" + video.id + "?autoplay=1&rel=0";
+
+        /* === DATOS DEL VIDEO === */
+        document.getElementById("modal_titulo").innerText = video.title;
+
+        document.getElementById("md_views").innerText =
+          redondeo(Number(video.viewCount)) + " vistas ";
+
+        document.getElementById("md_likes").innerText = redondeo(
+          Number(video.likeCount),
+        );
+
+        document.getElementById("md_fecha").innerText = formatearFecha(
+          video.publishedAt,
+        );
+
+        document.getElementById("md_description").innerText = video.description;
+      }
+
+      /* =========================================
+            CERRAR MODAL
+========================================= */
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+        videoFrame.src = "";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+          videoFrame.src = "";
+        }
+      };
+    </script>
+  </body>
+</html>
