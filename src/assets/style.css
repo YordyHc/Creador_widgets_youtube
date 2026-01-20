@@ -48,8 +48,7 @@ body {
   padding: 10px;
 }
 
-.red-social button,
-.continuar a {
+.btns {
   font-weight: 600 !important;
 }
 .disenos {
@@ -126,6 +125,7 @@ body {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
 .canal-input {
   width: 100%;
   display: flex;
@@ -136,16 +136,33 @@ body {
   padding: 10px 50px 10px 50px;
   border-radius: 50px;
 }
+
+.lb-yor {
+  display: block;
+  font-size: 14.7px;
+  font-weight: 400;
+  color: #333;
+  line-height: 1.2;
+}
 .lb-in {
   display: flex;
   align-items: center;
 }
-.caja {
+.lb-in input.caja {
   width: 600px;
   height: 34px;
+  font-size: 14px;
+  color: #333;
+  padding: 0 15px;
   border: none;
   border-radius: 20px;
   margin: 0 0 0 10px;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.lb-in input.caja:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 12px var(--rosa-oscuro);
 }
 .crear {
   padding: 15px;

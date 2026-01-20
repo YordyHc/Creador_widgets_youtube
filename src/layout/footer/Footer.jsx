@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer>
-      <p>© 2025 Mi Sitio Web</p>
+      <p>© 2026 Widsyord</p>
     </footer>
   );
 }

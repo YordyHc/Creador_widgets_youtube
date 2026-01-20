@@ -75,7 +75,7 @@ export default function Home() {
         </div>
         <div className="continuar">
           <Link
-            className="boton btn"
+            className="boton btns btn"
             to="/Prueba"
             state={{ activeIndex }}
             onClick={() => window.scrollTo(0, 0)}

@@ -5,13 +5,30 @@ document.addEventListener("DOMContentLoaded", function () {
   if (container) {
     const className = container.className;
 
-    // Usamos una expresión regular para extraer tanto la parte estática como la parte dinámica
+    // Extraer prefijo e id dinámico
     const match = className.match(/(yordwid-ywt\d+)-([a-f0-9\-]+)/);
 
+    // Evaluar si el contenedor está dentro de un padre con dimensiones
+    const parent = container.parentElement;
+
+    let hasSizedParent = false;
+
+    if (parent) {
+      const rect = parent.getBoundingClientRect();
+      hasSizedParent = rect.width > 0 && rect.height > 0;
+    }
+
+    if (hasSizedParent) {
+      container.style.width = "100%";
+      container.style.height = "100%";
+    } else {
+      container.style.width = "100%";
+      container.style.height = "100vh";
+    }
+
     if (match) {
-      const prefix = match[1]; // Esto es 'yordwid-ywt2' (o 'yordwid-ywt' + el número)
-      const widgetId = match[2]; // Esto es el valor dinámico que sigue al 'yordwid-ywt2-'
-      // Llamada para obtener los datos del widget (simulada aquí)
+      const prefix = match[1]; // ej: yordwid-ywt2
+      const widgetId = match[2]; // id dinámico
       loadWidgetData(prefix, widgetId);
     }
   }
@@ -22,8 +39,10 @@ async function loadWidgetData(prefijo, widgetId) {
     /* =========================
        1️⃣ Obtener id_canal
     ========================== */
+    console.log("widgetId:", widgetId);
+
     const resWidget = await fetch(
-      `http://127.0.0.1:8000/api/youtube/Widget-widsyord/?Id_Widget=${widgetId}`
+      `https://api-widget-youtube.onrender.com/api/youtube/Widget-widsyord/?Id_Widget=${widgetId}`,
     );
 
     if (!resWidget.ok) throw new Error("Error API Widget");
@@ -37,7 +56,7 @@ async function loadWidgetData(prefijo, widgetId) {
        2️⃣ Info del canal
     ========================== */
     const resChannel = await fetch(
-      `http://127.0.0.1:8000/api/youtube/youtube/channel-info/?forHandle=${id_canal}`
+      `https://api-widget-youtube.onrender.com/api/youtube/youtube/channel-info/?forHandle=${id_canal}`,
     );
 
     if (!resChannel.ok) throw new Error("Error API Channel Info");
@@ -48,7 +67,7 @@ async function loadWidgetData(prefijo, widgetId) {
        3️⃣ Videos del canal
     ========================== */
     const resVideos = await fetch(
-      `http://127.0.0.1:8000/api/youtube/youtube/videos-info/?channelId=${id_canal}`
+      `https://api-widget-youtube.onrender.com/api/youtube/youtube/videos-info/?channelId=${id_canal}`,
     );
 
     if (!resVideos.ok) throw new Error("Error API Videos");
@@ -88,7 +107,7 @@ function cargarWidget1(idWidget, datos, videos) {
   const iframe = document.createElement("iframe");
   iframe.src = "../plantillas/pages/widget_1.html";
   iframe.width = "100%";
-  iframe.height = "500";
+  iframe.height = "100%";
   iframe.style.border = "none";
   iframe.loading = "lazy";
 
@@ -99,7 +118,7 @@ function cargarWidget1(idWidget, datos, videos) {
         datos: datos,
         videos: videos.videos, // 🔥 SOLO EL ARRAY
       },
-      "*"
+      "*",
     );
   };
 
@@ -119,7 +138,7 @@ function cargarWidget2(idWidget, datos, videos) {
   const iframe = document.createElement("iframe");
   iframe.src = "../plantillas/pages/widget_2.html";
   iframe.width = "100%";
-  iframe.height = "500";
+  iframe.height = "100%";
   iframe.style.border = "none";
   iframe.loading = "lazy";
 
@@ -129,36 +148,7 @@ function cargarWidget2(idWidget, datos, videos) {
         datos: datos,
         videos: videos.videos, // 🔥 SOLO EL ARRAY
       },
-      "*"
-    );
-  };
-
-  container.innerHTML = "";
-  container.appendChild(iframe);
-}
-
-function cargarWidget2(idWidget, datos, videos) {
-  const container = document.querySelector(`.${idWidget}`);
-
-  if (!container) {
-    console.error("Contenedor no encontrado:", idWidget);
-    return;
-  }
-
-  const iframe = document.createElement("iframe");
-  iframe.src = "../plantillas/pages/widget_2.html";
-  iframe.width = "100%";
-  iframe.height = "500";
-  iframe.style.border = "none";
-  iframe.loading = "lazy";
-
-  iframe.onload = () => {
-    iframe.contentWindow.postMessage(
-      {
-        datos: datos,
-        videos: videos.videos, // 🔥 SOLO EL ARRAY
-      },
-      "*"
+      "*",
     );
   };
 
@@ -177,7 +167,7 @@ function cargarWidget3(idWidget, datos, videos) {
   const iframe = document.createElement("iframe");
   iframe.src = "../plantillas/pages/widget_3.html";
   iframe.width = "100%";
-  iframe.height = "500";
+  iframe.height = "100%";
   iframe.style.border = "none";
   iframe.loading = "lazy";
 
@@ -187,7 +177,7 @@ function cargarWidget3(idWidget, datos, videos) {
         datos: datos,
         videos: videos.videos, // 🔥 SOLO EL ARRAY
       },
-      "*"
+      "*",
     );
   };
 
@@ -206,7 +196,7 @@ function cargarWidget4(idWidget, datos, videos) {
   const iframe = document.createElement("iframe");
   iframe.src = "../plantillas/pages/widget_4.html";
   iframe.width = "100%";
-  iframe.height = "500";
+  iframe.height = "100%";
   iframe.style.border = "none";
   iframe.loading = "lazy";
 
@@ -216,7 +206,7 @@ function cargarWidget4(idWidget, datos, videos) {
         datos: datos,
         videos: videos.videos, // 🔥 SOLO EL ARRAY
       },
-      "*"
+      "*",
     );
   };
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -160,9 +160,9 @@
         });
 
         document.getElementById("stats").textContent = `${redondeo(
-          datos.subscriberCount
+          datos.subscriberCount,
         )} Suscriptores • ${redondeo(datos.videoCount)} Videos • ${redondeo(
-          datos.viewCount
+          datos.viewCount,
         )} Vistas`;
 
         document.querySelectorAll(".yt_button_url").forEach((el) => {
@@ -376,11 +376,11 @@
           redondeo(Number(video.viewCount)) + " vistas ";
 
         document.getElementById("md_likes").innerText = redondeo(
-          Number(video.likeCount)
+          Number(video.likeCount),
         );
 
         document.getElementById("md_fecha").innerText = formatearFecha(
-          video.publishedAt
+          video.publishedAt,
         );
 
         document.getElementById("md_description").innerText = video.description;

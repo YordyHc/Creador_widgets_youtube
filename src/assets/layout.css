@@ -10,14 +10,22 @@ header {
   z-index: 1000;
 }
 
+.widsyord-titulo {
+  width: 100px;
+  transition: width 0.5s ease;
+}
+.widsyord-titulo:hover {
+  filter: drop-shadow(0px 0px 10px var(--rosa-oscuro));
+  width: 105px;
+}
 /* Cuando hace scroll */
 header.scrolled {
   background: var(--verde-gris);
+  box-shadow: 0px 2px 10px #5e5e5e;
 }
 
-.widsyord-titulo {
-  width: 95px;
-  transition: width 0.5s ease;
+header.scrolled .widsyord-titulo {
+  width: 90px;
 }
 
 footer {

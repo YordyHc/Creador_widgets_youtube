@@ -60,7 +60,16 @@ export default function DisenoPrueba() {
   };
 
   const copiarTexto = () => {
-    // tu lógica actual
+    const texto = document.getElementById("modal-body").innerText;
+
+    navigator.clipboard.writeText(texto).then(() => {
+      const msg = document.getElementById("confirmationMessage");
+      msg.style.opacity = 1;
+
+      setTimeout(() => {
+        msg.style.opacity = 0;
+      }, 1500);
+    });
   };
 
   const crearWidget = async () => {
@@ -75,11 +84,11 @@ export default function DisenoPrueba() {
 
     try {
       const data = await peticionApi(
-        "http://127.0.0.1:8000/api/youtube/widsyord/",
+        "https://api-widget-youtube.onrender.com/api/youtube/widsyord/",
         "POST",
         {
           id_canal: canal.idcanal, // 👈 AQUÍ
-        }
+        },
       );
 
       setModalMensaje(data.codigo_wid);
@@ -94,7 +103,9 @@ export default function DisenoPrueba() {
     <section className="cont-prueba mt-5 mb-5 container">
       <div className="canal-input mb-4">
         <div className="lb-in">
-          <label htmlFor="canal">Ingrese Link del canal:</label>
+          <label className="lb-yor" htmlFor="canal">
+            Ingrese Link del canal:
+          </label>
           <input
             className="caja"
             id="canal"
@@ -106,7 +117,7 @@ export default function DisenoPrueba() {
 
         <div>
           <button
-            className="boton btn"
+            className="boton btns btn"
             type="button"
             onClick={procesarCanal}
             disabled={loading}
@@ -125,14 +136,14 @@ export default function DisenoPrueba() {
           onLoad={(e) => {
             e.target.contentWindow.postMessage(
               { datos: canal, videos: videos?.videos },
-              "*"
+              "*",
             );
           }}
         />
       </div>
 
       <div className="crear">
-        <button className="boton btn" type="button" onClick={crearWidget}>
+        <button className="boton btns btn" type="button" onClick={crearWidget}>
           Crear widget
         </button>
       </div>
@@ -159,7 +170,7 @@ export default function DisenoPrueba() {
                 : `<div class="yordwid-ywt${
                     activeIndex + 1
                   }-${modalMensaje}"></div>
-<script src="/creacion_widgets_youtube/script/crearWidget.js"></script>`}
+<script src="Creador_widgets_youtube.vercel.app/plantillas/assets/script/IntegrarYorwids.js"></script>`}
             </pre>
 
             <br />
